@@ -1,39 +1,43 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { ReactNode } from "react";
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * Scroll-triggered reveal. Fades + lifts its children into place the first
+ * time they enter the viewport. `delay` is in milliseconds (kept for
+ * back-compat with existing call sites).
+ */
 export default function Reveal({
   children,
   delay = 0,
   className = "",
+  y = 28,
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
+  y?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.classList.add("visible");
-            observer.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const variants: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : y },
+    visible: { opacity: 1, y: 0 },
+  };
 
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px -8% 0px" }}
+      variants={variants}
+      transition={{ duration: 0.7, delay: delay / 1000, ease: EASE }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }

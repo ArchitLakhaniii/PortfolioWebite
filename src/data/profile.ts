@@ -305,9 +305,149 @@ export const achievements: Achievement[] = [
 
 export const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Work", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
+];
+
+// ============================================================
+// CINEMATIC SHOWCASE SCENES
+// Each scene is one pinned, scroll-driven chapter on the site.
+// Wording is reused from `projects` / `experience` above —
+// edit those for content, edit here for scene presentation.
+// Scene ids reuse project ids where they cover the same work,
+// so the "More work" index can exclude them automatically.
+// ============================================================
+
+export type SceneMetric = { value: string; label: string };
+
+export type Scene = {
+  id: string;
+  kind: "project" | "role";
+  kicker: string; // short chapter label, e.g. "AI Agents"
+  title: string;
+  subtitle: string; // role / position line
+  summary: string;
+  metrics?: SceneMetric[];
+  tags: string[];
+  hue: number; // 0–360, drives the scene's accent color
+  image?: string; // optional /public path; falls back to the typographic cover
+  github?: string;
+};
+
+export const scenes: Scene[] = [
+  {
+    id: "gitgood",
+    kind: "project",
+    kicker: "AI Agents",
+    title: "GitGood",
+    subtitle: "Full-Stack / AI Agent Developer",
+    summary:
+      "AI-powered GitHub repository analyzer and tutorial generator. A 6-step Mastra agent pipeline analyzes architecture, identifies core abstractions, maps relationships, and generates beginner-friendly tutorials for any codebase.",
+    tags: ["Next.js", "TypeScript", "Mastra", "AI Agents", "LLMs"],
+    hue: 235,
+    github: "https://github.com/ArchitLakhaniii",
+  },
+  {
+    id: "sidequest",
+    kind: "project",
+    kicker: "iOS",
+    title: "SideQuest",
+    subtitle: "Senior iOS Developer · GT iOS Club",
+    summary:
+      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Full SwiftUI + Firebase stack.",
+    tags: ["Swift", "SwiftUI", "Firebase", "Firestore", "Kingfisher"],
+    hue: 160,
+    github: "https://github.com/ArchitLakhaniii",
+  },
+  {
+    id: "tastecast",
+    kind: "project",
+    kicker: "Startup",
+    title: "TasteCast",
+    subtitle: "Cofounder + Technical Builder",
+    summary:
+      "AI-powered demand forecasting and inventory optimization for independent restaurants. Predicts daily item demand, plans inventory, reduces food waste, and prevents stockouts with data-driven forecasts.",
+    tags: ["Python", "pandas", "scikit-learn", "Forecasting", "ML"],
+    hue: 25,
+    github: "https://github.com/ArchitLakhaniii",
+  },
+  {
+    id: "text-to-sql",
+    kind: "project",
+    kicker: "ML Engineering",
+    title: "Jio Text-to-SQL LLM",
+    subtitle: "ML Intern · Reliance Jio",
+    summary:
+      "LLM pipeline converting natural language into SQL queries with structured database results. Improved query generation speed by 50% and accuracy by ~60% across internal workloads.",
+    metrics: [
+      { value: "+50%", label: "Query generation speed" },
+      { value: "~60%", label: "Accuracy improvement" },
+    ],
+    tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
+    hue: 280,
+  },
+  {
+    id: "eunokinetix",
+    kind: "project",
+    kicker: "Founder",
+    title: "EunoKinetix",
+    subtitle: "Cofounder",
+    summary:
+      "AI fleet optimization system using Dijkstra's algorithm to reduce idle routes and fuel usage. Secured AED 28,000 in UAE government funding and reached Top 3 among UAE entrepreneurship projects.",
+    metrics: [
+      { value: "AED 28K", label: "UAE government funding" },
+      { value: "Top 3", label: "UAE entrepreneurship projects" },
+    ],
+    tags: ["Python", "Graph Algorithms", "Route Optimization"],
+    hue: 205,
+  },
+  {
+    id: "flashfind",
+    kind: "project",
+    kicker: "Full-Stack ML",
+    title: "FlashFind",
+    subtitle: "Full-Stack / ML Developer",
+    summary:
+      "AI-powered campus marketplace. Students post natural-language Flash Requests — Gemini plus a custom Random Forest classifier Smart-Pings nearby students most likely to have the item.",
+    tags: ["Python", "FastAPI", "MongoDB", "Gemini", "React", "Tailwind"],
+    hue: 330,
+    github: "https://github.com/ArchitLakhaniii",
+  },
+  {
+    id: "cs1331-ta",
+    kind: "role",
+    kicker: "Teaching",
+    title: "CS 1331 Teaching Assistant",
+    subtitle: "Georgia Tech · College of Computing",
+    summary:
+      "Teaching object-oriented programming in Java to Georgia Tech undergraduates. Lead recitations, grade projects, and mentor students through core OOP design concepts.",
+    tags: ["Java", "OOP", "Mentorship"],
+    hue: 45,
+  },
+  {
+    id: "gt-ios-club",
+    kind: "role",
+    kicker: "iOS Engineering",
+    title: "GT iOS Club",
+    subtitle: "Senior Developer",
+    summary:
+      "Building SideQuest, a social adventure iOS app, leading core SwiftUI + Firebase features across quests, feeds, profiles, and leaderboards. Won the club's Demo Day Pitch Competition with BirthdayPal.",
+    metrics: [{ value: "Winner", label: "Demo Day Pitch Competition" }],
+    tags: ["SwiftUI", "Firebase", "Leadership"],
+    hue: 145,
+  },
+  {
+    id: "blueboat-research",
+    kind: "role",
+    kicker: "Research",
+    title: "Autonomous BlueBoat Navigation",
+    subtitle: "Undergraduate Researcher · Sabra Lab",
+    summary:
+      "Computer-vision-based safety navigation systems for autonomous surface vehicles. Contributing to perception and safer navigation research at Georgia Tech's Sabra Lab.",
+    tags: ["Computer Vision", "AI Safety", "Research"],
+    hue: 190,
+  },
 ];

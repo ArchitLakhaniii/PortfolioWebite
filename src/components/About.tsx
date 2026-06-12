@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import Section from "./Section";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";
 
@@ -12,33 +13,38 @@ const facts: [string, string][] = [
 
 export default function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-24">
-      <SectionHeader num="01" title="About" />
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+    <Section id="about">
+      <SectionHeader num="01" title="About" kicker="About" />
+      <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
         <Reveal>
-          <div className="space-y-5 text-base leading-relaxed text-ghost">
-            {profile.about.map((p, i) => (
-              <p key={i}>{p}</p>
+          <div className="space-y-6">
+            <p className="text-balance text-xl leading-relaxed text-chalk sm:text-2xl">
+              {profile.about[0]}
+            </p>
+            {profile.about.slice(1).map((p, i) => (
+              <p key={i} className="text-base leading-relaxed text-ghost sm:text-lg">
+                {p}
+              </p>
             ))}
           </div>
         </Reveal>
+
         <Reveal delay={120}>
-          <div className="glass rounded-2xl p-6">
-            <p className="mb-4 font-mono text-xs text-faint">// quick.facts</p>
-            <ul className="space-y-4">
-              {facts.map(([k, v]) => (
-                <li key={k} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-neon to-violet" />
-                  <div>
-                    <p className="font-mono text-[11px] uppercase tracking-wider text-faint">{k}</p>
-                    <p className="text-sm text-white">{v}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <dl className="border-t border-line">
+            {facts.map(([k, v]) => (
+              <div
+                key={k}
+                className="flex items-baseline justify-between gap-6 border-b border-line py-4"
+              >
+                <dt className="font-mono text-[11px] uppercase tracking-label text-faint">
+                  {k}
+                </dt>
+                <dd className="text-right text-sm text-chalk">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }

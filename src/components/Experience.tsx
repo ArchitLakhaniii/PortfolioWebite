@@ -1,43 +1,45 @@
 import { experience } from "@/data/profile";
+import Section from "./Section";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";
 
 export default function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-6xl px-6 py-24">
+    <Section id="experience">
       <SectionHeader
         num="03"
         title="Experience"
-        sub="Internships, teaching, research, and engineering roles."
+        kicker="Experience"
+        sub="Every role at a glance — internships, research, teaching, and engineering."
       />
-      <div className="relative ml-2 border-l border-line pl-8 sm:ml-4">
-        {experience.map((e, i) => (
-          <Reveal key={`${e.company}-${e.date}`} delay={i * 60} className="relative pb-12 last:pb-0">
-            {/* timeline dot */}
-            <span className="absolute -left-[37px] top-1.5 flex h-3.5 w-3.5 items-center justify-center sm:-left-[37px]">
-              <span className="absolute h-3.5 w-3.5 rounded-full bg-neon/20" />
-              <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_12px_2px_rgba(34,211,238,0.6)]" />
-            </span>
 
-            <div className="glass glass-hover rounded-2xl p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-display text-lg font-semibold text-white">{e.company}</h3>
-                <span className="font-mono text-xs text-neon/80">{e.date}</span>
+      <div className="border-t border-line">
+        {experience.map((e, i) => (
+          <Reveal key={`${e.company}-${e.date}`} delay={(i % 2) * 60}>
+            <article className="grid grid-cols-1 gap-3 border-b border-line py-7 md:grid-cols-[1fr_2fr] md:gap-12">
+              <div>
+                <p className="font-mono text-xs tracking-label text-faint">{e.date}</p>
+                <h3 className="mt-2 font-display text-lg font-semibold leading-snug text-chalk">
+                  {e.company}
+                </h3>
+                <p className="mt-1 text-sm text-accent">{e.role}</p>
+                <p className="mt-1 text-xs text-faint">{e.location}</p>
               </div>
-              <p className="mt-1 text-sm font-medium text-violet">{e.role}</p>
-              <p className="mt-0.5 font-mono text-[11px] text-faint">{e.location}</p>
-              <ul className="mt-4 space-y-2">
+              <ul className="space-y-2 md:pt-1">
                 {e.bullets.map((b, j) => (
-                  <li key={j} className="flex gap-3 text-sm leading-relaxed text-ghost">
+                  <li
+                    key={j}
+                    className="flex gap-3 text-sm leading-relaxed text-ghost"
+                  >
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-faint" />
                     {b}
                   </li>
                 ))}
               </ul>
-            </div>
+            </article>
           </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

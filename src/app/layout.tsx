@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     description: profile.tagline,
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: `${profile.name} — ${profile.role}`,
+    description: profile.tagline,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,14 +28,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href={FONTS_URL} rel="stylesheet" />
       </head>
-      <body className="font-body bg-void">
-        {/* fixed background layers */}
+      <body className="font-body bg-void text-chalk">
+        {/* fixed, restrained background — a single soft glow + grain */}
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
-          <div className="absolute inset-0 bg-grid" />
-          <div className="absolute -top-48 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-violet/15 blur-[140px] animate-pulse-slow" />
-          <div className="absolute top-1/3 -left-40 h-[420px] w-[420px] rounded-full bg-neon/10 blur-[120px]" />
-          <div className="absolute bottom-0 -right-40 h-[420px] w-[420px] rounded-full bg-magenta/10 blur-[120px]" />
-          <div className="absolute inset-0 bg-noise" />
+          <div className="absolute inset-0 dotfield opacity-60" />
+          <div className="absolute -top-[20%] left-1/2 h-[640px] w-[80vw] max-w-[1100px] -translate-x-1/2 rounded-full bg-accent/[0.07] blur-[160px] animate-pulse-slow" />
+          <div className="absolute inset-0 grain" />
+          <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-void to-transparent" />
         </div>
         <div className="relative z-10">{children}</div>
       </body>

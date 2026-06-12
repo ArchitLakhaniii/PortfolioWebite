@@ -1,110 +1,141 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { profile, stats } from "@/data/profile";
-import { GitHubIcon, LinkedInIcon, MailIcon, DownloadIcon, ArrowIcon } from "./Icons";
+import { GitHubIcon, LinkedInIcon, MailIcon, ArrowIcon } from "./Icons";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+};
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
-    <section id="top" className="relative flex min-h-screen items-center pt-16">
-      <div className="mx-auto grid w-full max-w-6xl gap-14 px-6 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-        {/* Left */}
-        <div>
-          <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-neon/25 bg-neon/5 px-4 py-1.5 font-mono text-xs text-neon">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neon opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-neon" />
+    <section
+      ref={ref}
+      id="top"
+      className="relative flex min-h-[100svh] items-center overflow-hidden"
+    >
+      <motion.div
+        style={{ y, opacity }}
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="mx-auto w-full max-w-content px-6 pb-24 pt-32 sm:px-8"
+      >
+        {/* availability */}
+        <motion.div variants={item}>
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-white/[0.02] px-3.5 py-1.5 text-xs text-ghost">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-50" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
             </span>
             {profile.availability}
-          </div>
+          </span>
+        </motion.div>
 
-          <p className="animate-fade-up mt-6 font-mono text-sm tracking-[0.2em] text-ghost" style={{ animationDelay: "80ms" }}>
-            {profile.eyebrow.toUpperCase()}
-          </p>
+        {/* name */}
+        <motion.h1
+          variants={item}
+          className="mt-8 font-display text-[15vw] font-semibold leading-[0.92] tracking-tightest text-chalk sm:text-7xl md:text-8xl lg:text-[8.5rem]"
+        >
+          <span className="block">{profile.firstName}</span>
+          <span className="block text-sheen">{profile.lastName}</span>
+        </motion.h1>
 
-          <h1
-            className="animate-fade-up mt-4 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
-            style={{ animationDelay: "160ms" }}
+        {/* role + eyebrow */}
+        <motion.div
+          variants={item}
+          className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ghost"
+        >
+          <span className="font-medium text-chalk">{profile.role}</span>
+          <span className="h-1 w-1 rounded-full bg-faint" />
+          <span className="eyebrow not-italic">{profile.eyebrow.toUpperCase()}</span>
+          <span className="h-1 w-1 rounded-full bg-faint" />
+          <span>{profile.location}</span>
+        </motion.div>
+
+        {/* tagline */}
+        <motion.p
+          variants={item}
+          className="mt-8 max-w-2xl text-balance text-lg leading-relaxed text-ghost sm:text-xl"
+        >
+          {profile.tagline}
+        </motion.p>
+
+        {/* CTAs + socials */}
+        <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-3">
+          <a
+            href="#projects"
+            className="group inline-flex items-center gap-2 rounded-full bg-chalk px-6 py-3 text-sm font-medium text-void transition-transform duration-300 hover:scale-[1.02]"
           >
-            <span className="text-white">{profile.firstName}</span>
-            <br />
-            <span className="text-gradient">{profile.lastName}</span>
-          </h1>
-
-          <p
-            className="animate-fade-up mt-6 max-w-xl text-base leading-relaxed text-ghost sm:text-lg"
-            style={{ animationDelay: "240ms" }}
+            View Work
+            <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+          <a
+            href={profile.resumeUrl}
+            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-chalk transition-colors duration-300 hover:border-white/25"
           >
-            {profile.tagline}
-          </p>
-
-          <div className="animate-fade-up mt-9 flex flex-wrap items-center gap-4" style={{ animationDelay: "320ms" }}>
-            <a
-              href="#projects"
-              className="btn-glow inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-neon to-violet px-6 py-3 text-sm font-semibold text-void transition-transform hover:scale-[1.03]"
-            >
-              View Projects <ArrowIcon className="h-4 w-4" />
-            </a>
-            <a
-              href={profile.resumeUrl}
-              className="glass glass-hover inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-white"
-            >
-              <DownloadIcon /> Resume
-            </a>
-          </div>
-
-          <div className="animate-fade-up mt-9 flex items-center gap-5" style={{ animationDelay: "400ms" }}>
-            <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-ghost transition-colors hover:text-neon">
+            Resume
+          </a>
+          <span className="mx-1 hidden h-5 w-px bg-line sm:block" />
+          <div className="flex items-center gap-1">
+            <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="rounded-full p-2.5 text-ghost transition-colors hover:text-chalk">
               <GitHubIcon className="h-5 w-5" />
             </a>
-            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-ghost transition-colors hover:text-neon">
+            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-full p-2.5 text-ghost transition-colors hover:text-chalk">
               <LinkedInIcon className="h-5 w-5" />
             </a>
-            <a href={`mailto:${profile.email}`} aria-label="Email" className="text-ghost transition-colors hover:text-neon">
+            <a href={`mailto:${profile.email}`} aria-label="Email" className="rounded-full p-2.5 text-ghost transition-colors hover:text-chalk">
               <MailIcon className="h-5 w-5" />
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right — terminal-style stat card */}
-        <div className="animate-fade-up" style={{ animationDelay: "300ms" }}>
-          <div className="glass relative overflow-hidden rounded-2xl p-1">
-            <div className="glow-line absolute inset-x-0 top-0" />
-            <div className="flex items-center gap-1.5 px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-3 font-mono text-[11px] text-faint">archit@gatech ~ profile</span>
+        {/* stat strip */}
+        <motion.dl
+          variants={item}
+          className="mt-16 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="bg-void px-5 py-5">
+              <dt className="font-display text-2xl font-semibold tracking-tight text-chalk sm:text-3xl">
+                {s.value}
+              </dt>
+              <dd className="mt-1.5 text-[11px] leading-snug text-faint">{s.label}</dd>
             </div>
-            <div className="space-y-4 px-5 pb-6 pt-2 font-mono text-sm">
-              <div>
-                <p className="text-faint">$ whoami</p>
-                <p className="mt-1 text-white">{profile.role} · {profile.location}</p>
-              </div>
-              <div>
-                <p className="text-faint">$ cat stats.json</p>
-                <div className="mt-2 grid grid-cols-2 gap-3">
-                  {stats.map((s) => (
-                    <div key={s.label} className="rounded-lg border border-line bg-white/[0.02] p-3">
-                      <p className="text-gradient font-display text-xl font-bold">{s.value}</p>
-                      <p className="mt-1 text-[11px] leading-snug text-ghost">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-faint">$ current --focus</p>
-                <p className="mt-1 leading-relaxed text-neon/90">
-                  AI agents · iOS · backend · CV research<span className="animate-blink">▊</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+          ))}
+        </motion.dl>
+      </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block">
+      {/* scroll cue */}
+      <motion.div
+        style={{ opacity }}
+        className="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 md:block"
+      >
         <div className="flex h-9 w-5 items-start justify-center rounded-full border border-line p-1.5">
-          <div className="h-2 w-1 animate-bounce rounded-full bg-neon" />
+          <motion.span
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            className="h-1.5 w-1 rounded-full bg-ghost"
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
