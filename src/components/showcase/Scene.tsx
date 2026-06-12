@@ -1,12 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import type { Scene as SceneData } from "@/data/profile";
+import { hasDetail } from "@/data/projectDetails";
 import useDesktopScrub from "@/hooks/useDesktopScrub";
 import Reveal from "../Reveal";
 import SceneVisual from "./SceneVisual";
-import { GitHubIcon } from "../Icons";
+import { GitHubIcon, ArrowIcon } from "../Icons";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -55,6 +57,25 @@ function SourceLink({ scene }: { scene: SceneData }) {
     >
       <GitHubIcon className="h-4 w-4" /> Source
     </a>
+  );
+}
+
+function SceneActions({ scene }: { scene: SceneData }) {
+  const detail = hasDetail(scene.id);
+  if (!detail && !scene.github) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+      {detail && (
+        <Link
+          href={`/work/${scene.id}`}
+          className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-medium text-chalk transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.03]"
+        >
+          View details
+          <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </Link>
+      )}
+      <SourceLink scene={scene} />
+    </div>
   );
 }
 
@@ -132,8 +153,8 @@ function SceneScrub({
                 <div className="mt-6">
                   <Tags tags={scene.tags} />
                 </div>
-                <div className="mt-6">
-                  <SourceLink scene={scene} />
+                <div className="mt-7">
+                  <SceneActions scene={scene} />
                 </div>
               </motion.div>
             </div>
@@ -198,11 +219,9 @@ function SceneStatic({
           <div className="mt-6">
             <Tags tags={scene.tags} />
           </div>
-          {scene.github && (
-            <div className="mt-6">
-              <SourceLink scene={scene} />
-            </div>
-          )}
+          <div className="mt-7">
+            <SceneActions scene={scene} />
+          </div>
         </div>
       </Reveal>
     </div>

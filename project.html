@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'DM Sans', sans-serif; background: #0a0a0b; color: #f0ede8; margin:0; }
+    .container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
+    a { color: #c8a96e; text-decoration: none; }
+    .card { background: #0f0f11; border: 1px solid rgba(255,255,255,0.06); padding: 2rem; border-radius: 12px; }
+  /* removed custom embed styles */
+  .title { font-family: 'Instrument Serif', Georgia, serif; font-size: 2rem; margin-bottom: 0.5rem; display:inline-block; vertical-align:middle }
+    .role { font-family: 'DM Mono', monospace; color: #9c9a94; font-size: 13px; margin-bottom: 1rem; }
+    .desc { color: #cfcac0; line-height: 1.7; margin-bottom: 1rem; }
+    .tags { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom: 1rem; }
+    .tag { font-family: 'DM Mono', monospace; font-size: 12px; color:#9c9a94; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.06); }
+    .back { display:inline-block; margin-top: 1.25rem; }
+    .meta { margin-top: 1rem; font-size: 14px; color: #9c9a94; }
+  /* embeds removed */
+  .resource-links { display:flex; gap:0.75rem; align-items:center; margin-top:0.5rem; }
+  .btn { background: transparent; color: #c8a96e; border: 1px solid rgba(200,169,110,0.18); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight:700; font-size:15px }
+  .btn-medium { padding: 12px 16px; font-size:16px; }
+  .btn-small { padding: 8px 10px; font-size:14px; }
+  .btn:hover { background: rgba(200,169,110,0.06); }
+  .btn-large { padding: 14px 20px; font-size:18px; border-width: 1px; box-shadow: 0 6px 18px rgba(200,169,110,0.08); }
+  .header-resources { display:inline-flex; gap:8px; margin-left:12px; vertical-align:middle; align-items:center }
+  .header-resources--wide { gap:16px }
+  .embedded-video iframe { width:100%; height:360px; border:0; border-radius:8px; margin-top:12px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html">← Back to portfolio</a>
+    <div id="projectWrap" class="card" style="margin-top:1rem">
+      <div class="title" id="pTitle">Project</div>
+      <div class="role" id="pRole">Role</div>
+    <div class="desc" id="pDesc">Description</div>
+    <div id="pLongDesc" style="margin-top:1rem;color:#cfcac0;line-height:1.7"></div>
+
+  <h3 id="contribHeading" style="margin-top:1rem">Technical contributions:</h3>
+  <ul id="pContribs" style="color:#cfcac0;line-height:1.6"></ul>
+
+  <h3 id="officersHeading" style="margin-top:1rem">Officers</h3>
+  <div id="pOfficers" style="color:#cfcac0;line-height:1.6"></div>
+
+  <h3 id="structureHeading" style="margin-top:1rem">Project structure</h3>
+  <div id="pAppStructure" style="color:#cfcac0;line-height:1.6"></div>
+
+    <div class="tags" id="pTags"></div>
+    <div id="pExtras" class="meta"></div>
+  <div id="pResources" style="margin-top:1rem;color:#cfcac0"></div>
+    <div id="pStats" style="margin-top:0.5rem;color:#9c9a94"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Minimal client-side project datastore. Keep in sync with index.html project content.
+      const PROJECTS = {
+      'sidequest': {
+          title: 'SideQuest',
+          role: 'Senior iOS Developer · GT iOS Club',
+          desc: 'Make traveling more fun by turning every place into an adventure you can explore, play, and remember! Built with a full SwiftUI + Firebase stack.',
+          longDesc: `<p>SideQuest is a social adventure iOS app built as the GT iOS Club Spring 2026 project. It encourages exploration by turning locations into quests users can complete, share, and collaborate on. The app emphasizes social interactions, shared experiences, and discoverability via a feed of user-generated quests and posts.</p>
+          <p>Key product goals: make discovery of nearby activities effortless, encourage collaborative play through shared quests, and create a lightweight social layer focused on short-form achievements and photos.</p>`,
+          contributions: [
+            'Built core SwiftUI + Firebase features across quests, feeds, profiles, collaboration, and leaderboards.',
+            'Helped implement quest posting and collaborator flows.',
+            'Worked on image uploads and Firestore-backed social features.',
+            'Built and redesigned UI components such as ranking cards and profile/feed views.',
+            'Integrated real-time social interactions such as comments, reactions, and collaborative quest posts.'
+          ],
+          officers: {
+            technicalLeaders: ['Amber Verma','Nithya Ravula'],
+            seniorDevelopers: ['Artem Kim','Brian Pan','Archit Lakhani','Aditya Jha'],
+            seniorDesigner: 'Janet Chang'
+          },
+          appStructure: `<strong>SideQuest - iOS Club Spring 2026 Project</strong>
+          <p>The SideQuest app is organized into shared code and feature-based folders.</p>
+          <p><strong>Common</strong><br>The Common folder contains code used throughout the app. This includes models, reusable UI components, Firebase files, etc. This helps avoid duplication and keeps shared logic in one place.</p>
+          <p><strong>Feature folders</strong><br>Each major part of the app has its own folder: Home, Profile, Feed. Each feature folder is divided into Views and ViewModels.</p>
+          <pre style="background:transparent;border:0;color:#cfcac0">Home
+    Views
+    ViewModels
+  Feed
+    Views
+    ViewModels
+  Profile
+    Views
+    ViewModels</pre>
+          <p>This keeps features modular and easy to maintain.</p>`,
+          resources: {
+            demoVideo: 'https://youtube.com/shorts/A0aAJUHVLow'
+          },
+          stats: { stars: 2, watchers: 0, forks: 0 }
+      },
+      'tastecast': {
+        title: 'TasteCast',
+        role: 'Cofounder + Technical Builder',
+        desc: 'TasteCast is an AI-powered demand forecasting and inventory optimization platform for small and independent restaurants. It helps restaurants predict daily item demand, plan inventory, reduce food waste, avoid stockouts, and make smarter prep or promotion decisions using data-driven forecasts.',
+        longDesc: `<p>TasteCast helps independent restaurants turn historical sales and transactional data into actionable forecasts and stocking recommendations. The product focuses on ease-of-use for small teams: daily demand predictions, clear actionable signals (BUY, OK, SURPLUS), and weekly advisories for prep and promotions.</p>
+        <p>Designed to reduce food waste, avoid costly stockouts, and simplify planning for kitchens with limited staff and storage.</p>`,
+          contributions: [
+          'Built the core forecasting MVP using Python, pandas, and scikit-learn.',
+          'Implemented CSV data ingestion and feature engineering pipelines to clean and transform raw restaurant data.',
+          'Built demand prediction models and inventory/stocking signals that output recommendations like BUY, OK, or SURPLUS and weekly advisories.',
+          'Designed backend logic that translates forecast outputs into actionable recommendations for operators.'
+        ],
+        resources: {
+          website: 'https://www.tastecast.me/',
+          demoVideo: 'https://youtu.be/fKMd_QUdI0g'
+        },
+        appStructure: `
+        <h4>Tech stack & architecture (summary)</h4>
+        <p>High level: TasteCast ingests restaurant CSV data, canonicalizes it, runs per-store×menu-item forecasting, and translates forecasts into ingredient-level demand and inventory advisories.</p>
+        <h4>Core backend responsibilities</h4>
+        <ul>
+          <li>Ingest CSV uploads (multi-file or an all-in-one CSV) via an API endpoint (e.g. <code>/api/ingest</code>).</li>
+          <li>Auto-detect upload mode: sales-only, multi-file (sales/recipes/ingredients/inventory), or all-in-one rows.</li>
+          <li>Normalize/split incoming data into internal tables: <code>sales_df_raw</code>, <code>recipe_df_raw</code>, <code>ingredient_df_raw</code>, <code>inventory_df_raw</code>.</li>
+          <li>Canonicalize fields (date, store, menu_item, qty_sold) and run per-store×menu forecasting.</li>
+          <li>Use recipes + ingredient metadata + inventory snapshots to derive ingredient demand, simulate inventory, and emit BUY/OK/SURPLUS advisories.</li>
+        </ul>
+        <h4>Project layout</h4>
+        <pre style="background:transparent;border:0;color:#cfcac0">tastecast/
+├─ api/
+│  ├─ ingest/       # endpoint + file parsing + mode detection
+│  ├─ forecast/     # forecast output endpoints
+│  └─ ingredient-plan/ # advisories, planning
+├─ core/
+│  ├─ preprocessing/ # column mapping, dedupe, date parsing
+│  ├─ forecasting/   # per store×item forecast logic
+│  ├─ recipes/       # menu-item to ingredient expansion
+│  └─ inventory/     # inventory simulation and advisories
+├─ uploads/         # sample CSVs for tests
+├─ schemas/         # CSV specs / field defs
+└─ frontend/        # upload UI, dashboards
+</pre>
+        <p>This architecture cleanly separates ingestion, preprocessing, forecasting, and planning, allowing graceful degradation if only sales are available.</p>
+        `,
+        tags: ['Python','pandas','scikit-learn','Forecasting','ML'],
+        extras: 'Featured · Startup'
+      },
+      'flashfind': {
+        title: 'FlashFind',
+        role: 'Full-Stack / ML Developer',
+  desc: 'Hyperlocal AI marketplace: users submit natural-language "Flash Requests" and the system parses intent with an LLM then Smart-Pings nearby students ranked by a Random Forest to fulfill needs in minutes.',
+  longDesc: `
+        <h4>Inspiration</h4>
+        <p>Built to solve urgent student needs (forgotten charger, last-minute textbook) by turning campus inventory into an on-demand network — faster than fragmented marketplaces and better for community reuse.</p>
+        <h4>What it does</h4>
+        <p>Students submit a short natural-language Flash Request; an LLM parses intent and item, and a lightweight ML classifier ranks and Smart-Pings nearby students most likely to help. The flow is optimized for speed, low noise, and privacy.</p>
+        <h4>How we built it</h4>
+        <p>Two-step AI pipeline: Google Gemini for language-to-JSON parsing, then a scikit-learn Random Forest (saved as a .joblib) for fast logical matching. Backend is FastAPI (Python) with MongoDB, frontend is React + TypeScript.</p>
+        <h4>Challenges & wins</h4>
+        <p>Key challenges were data alignment with training vs live data and solving cold-start via a synthetic-data factory. We're proud of integrating the Two-Step AI and training a custom Random Forest from synthetic examples.</p>
+        <h4>What's next</h4>
+        <p>Scale to other communities and emergency scenarios where rapid resource distribution matters.</p>
+        `,
+        tags: ['Python','FastAPI','MongoDB','Gemini','React','Tailwind'],
+        resources: {
+          website: 'https://flashfind.tech/',
+          github: 'https://github.com/benmorrissey06/aiatlwinningproject',
+          youtube: 'https://www.youtube.com/watch?v=GLwls6jSdPU',
+          devpost: 'https://devpost.com/software/flashfind'
+        },
+        extras: 'Featured · Web/AI'
+      },
+      'gitgood': {
+        title: 'gitGood',
+        role: 'Full-Stack / AI Workflow Developer',
+  desc: 'AI code analysis tool that converts GitHub repos into interactive, beginner-friendly walkthroughs — it maps structure, generates diagrams, and creates step-by-step tutorials using Mastra and LLM-assisted analysis.',
+        longDesc: `
+        <h4>The problem</h4>
+        <p>Open-source repos can be overwhelming. Outdated docs and disorganized files create a barrier to contribution. GitGood simplifies this by converting any GitHub repo into a clear, interactive tutorial.</p>
+        <h4>The solution</h4>
+        <p>GitGood analyzes a repo's files, architecture, and logic, generates high-level maps and diagrams, and produces multi-page, beginner-friendly walkthroughs with clickable node trees and explanations.</p>
+        <h4>What it does</h4>
+        <ul>
+          <li>Fetches a GitHub repo and extracts code structure automatically.</li>
+          <li>Generates a high-level overview and maps component relationships.</li>
+          <li>Breaks down code into digestible tutorial chapters with diagrams.</li>
+          <li>Provides interactive, clickable code diagrams for exploration.</li>
+        </ul>
+        <h4>How we built it</h4>
+        <p>Tech: React + TypeScript (Next.js) frontend, Mastra Agent workflows, Google Gemini, libSQL, and a backend that fetches repos, runs analysis, and packages a UI-ready JSON payload for the frontend.</p>
+        <h4>Challenges</h4>
+        <p>Integrating frontend and backend workflows, avoiding AI hallucination by enforcing structured prompts and file splitting, and building a robust pipeline that outputs consistent, UI-ready data.</p>
+        <h4>Accomplishments & what's next</h4>
+        <p>We learned Mastra end-to-end, shipped a working prototype, and plan to add language support, a built-in AI chatbot per page, and smarter, skill-adaptive explanations.</p>
+        `,
+        tags: ['Next.js','TypeScript','Mastra','AI Agents','Markdown'],
+        resources: {
+          website: 'https://gitgood.work',
+          github: 'https://github.com/deadly-nightshade/hackatgt25',
+          youtube: 'https://www.youtube.com/watch?v=7wa2r_rMioc',
+          devpost: 'https://devpost.com/software/gitgood-1qir93'
+        },
+        extras: 'Featured'
+      },
+      'eunokinetix': {
+        title: 'EunoKinetix',
+        role: 'Cofounder',
+        desc: "KinetiX is a fleet management system that helps logistical providers monitor vehicles and optimize operations using AI-driven routing and simulations.",
+        longDesc: `
+        <p>KinetiX is a revolutionary fleet management system developed by a team of three high school students from GEMS Modern Academy Dubai. It empowers logistical service providers to track and manage vehicles (buses, trucks) with real-time maintenance, vehicle history, registration, and operational data.</p>
+        <p>At the heart of KinetiX is <strong>Eunex</strong>, an AI model and algorithm that performs dynamic route optimization by considering payload, weather, traffic, and geography to improve efficiency and safety.</p>
+        <h4>Milestones & funding</h4>
+        <p>Supported by GEMS management and community recognition. Winner of the Ru'ya Next Founders Competition (AED 20,000) and first place in the GEMS Modern Academy Entrepreneurship Competition (Project Prism). We also raised AED 8,000 via crowdfunding — total support: AED 28,000.</p>
+        `,
+        tags: ['Python','Graph Algorithms','Dijkstra','Route Optimization'],
+        resources: {
+          image: 'image.png'
+        },
+        extras: 'Featured · Funded',
+        stats: { funding_aed: 28000 }
+      },
+      'birthdaypal': {
+        title: 'BirthdayPal',
+        role: 'iOS Developer / Team Lead Contributor',
+        desc: 'SwiftUI iOS app for birthday tracking and AI-generated personalized birthday messages. Won the GT iOS Club Demo Day Pitch Competition.',
+        contributions: [
+          'Built a SwiftUI iOS application for tracking birthdays.',
+          'Helped lead a team project that won the GT iOS Club Demo Day Pitch Competition.',
+          "Created an LLM pipeline using Apple's Foundation Model in Swift to generate personalised messages per user."
+        ],
+        resources: {
+          youtube: 'https://www.youtube.com/watch?v=eJ7s6XHZhao'
+        },
+        tags: ['Swift','SwiftUI','iOS','AI Content'],
+        extras: 'Award Winner'
+      },
+      'text-to-sql': {
+        title: 'Text-to-SQL LLM',
+        role: 'ML Intern · Reliance Jio',
+        desc: 'Built an AI-powered SQL chatbot that converts natural language questions into executable SQL and displays results in a Streamlit UI.',
+        longDesc: `
+        <p>Built an AI-powered SQL chatbot during my Jio internship that allows users to ask questions in natural language and automatically converts them into SQL queries. The system connects to a user-provided MySQL database, understands the database schema, generates the correct SQL query using an LLM, runs the query, and displays the result in a Streamlit web interface.</p>
+
+        <p>Technically, I used Streamlit for the frontend, LangChain for LLM orchestration and prompt engineering, Ollama for local LLM integration, SQLDatabase for database connectivity, FAISS and OllamaEmbeddings for semantic similarity search, and Pandas for displaying query results as downloadable dataframes. The project also used structured output parsing to force the LLM response into a reliable SQL query format.</p>
+
+        <p>I implemented two different query-generation pipelines: one optimized for faster runtime, and another optimized for higher accuracy. The faster version directly generates SQL using the user question, relevant database details, and example queries, while the more accurate version adds an extra LLM step to describe table data before generating the final SQL query.</p>
+
+        <p><strong>Tech Stack:</strong> Python, Streamlit, LangChain, Ollama, SQL, MySQL, Pandas, FAISS, OllamaEmbeddings, Pygwalker, ChromaDB</p>
+
+        <h4>Key Features</h4>
+        <ul>
+          <li>Converted natural language questions into executable SQL queries</li>
+          <li>Connected dynamically to MySQL databases using database name and URI</li>
+          <li>Generated table descriptions and examples automatically for better LLM context</li>
+          <li>Used embeddings and FAISS similarity search to retrieve relevant examples</li>
+          <li>Displayed query results in Streamlit as interactive, downloadable dataframes</li>
+          <li>Compared two LLM pipelines based on speed vs. accuracy tradeoffs</li>
+        </ul>
+        `,
+        tags: ['Python','LangChain','Ollama','Streamlit','SQL','NLP'],
+        resources: {
+          pdf: 'Jio Internship Report.pdf'
+        },
+        extras: 'ML · Internship'
+      },
+      'ai-nlp-predictive-models': {
+        title: 'AI / NLP Predictive Models',
+        role: 'AI & NLP Intern · NUS',
+        desc: 'AI / NLP projects: predictive analytics, chatbots, face recognition, and telecom churn prediction.',
+        longDesc: `
+        <h3>Technical Contributions</h3>
+        <ul>
+          <li>Implemented ANN, CNN, RNN, regression, clustering, and decision tree models.</li>
+          <li>Built and deployed chatbots using Amazon Lex.</li>
+          <li>Built face recognition solutions using Amazon Rekognition.</li>
+        </ul>
+
+        <h3>Telecom Customer Churn Prediction Project</h3>
+        <p>Built a machine learning project to analyze telecom customer behavior and predict customer churn using Python. The project cleaned and transformed a dataset of over 7,000 customers, explored churn patterns through visualizations, and compared multiple classification models to identify which factors were most strongly linked to customers leaving.</p>
+
+        <p>Technically, I used Pandas and NumPy for data cleaning and preprocessing, converted categorical customer attributes into model-ready features with one-hot encoding, and used Matplotlib and Seaborn to visualize relationships between churn, tenure, contract type, monthly charges, and customer demographics. I then trained and evaluated several models, including Logistic Regression, Random Forest, Support Vector Machine, and an LSTM neural network, with the best model reaching around 82% accuracy.</p>
+
+        <p><strong>Tech Stack:</strong> Python, Pandas, NumPy, Scikit-learn, TensorFlow/Keras, Matplotlib, Seaborn</p>
+
+        <h4>Key Features</h4>
+        <ul>
+          <li>Cleaned and preprocessed raw telecom customer data</li>
+          <li>Handled missing values and converted categorical data into numerical features</li>
+          <li>Visualized churn trends across contract type, tenure, charges, and demographics</li>
+          <li>Trained and compared multiple ML models for churn prediction</li>
+          <li>Interpreted model weights and feature importances to understand churn drivers</li>
+        </ul>
+        `,
+        contributions: [
+          'Implemented ANN, CNN, RNN, regression, clustering, and decision tree models.',
+          'Built and deployed chatbots using Amazon Lex.',
+          'Built face recognition solutions using Amazon Rekognition.'
+        ],
+        tags: ['Python','ANN','CNN','Amazon Lex','Rekognition','NLP'],
+        resources: {
+          notebook: 'AIYA_Group_7_Internship_Code_Final.html'
+        },
+        extras: 'Research'
+      },
+      'luvumom': {
+        title: 'LuvUMom',
+        role: 'Founder',
+        desc: 'Breast cancer screening app based on a 1+1 social impact model: every paid screening subsidizes a free screening for a domestic helper. Focused on accessibility and preventive healthcare equity.',
+        tags: ['Product Design','Health Tech','Social Impact','MVP Design'],
+        extras: 'Startup · Social Impact'
+      },
+      'cultfit-meal-planner': {
+        title: 'CULTFIT Meal-Planner',
+        role: 'Product Design Intern · JuniorMBA',
+        desc: "Meal-planning app prototype in partnership with CULTFIT India. Designed Concierge, Wizard of Oz, and Piecemeal MVPs with a custom GUI and homepage applying user-centered design principles.",
+        tags: ['UI/UX','MVP Prototyping','Product Design'],
+        extras: 'Web · Design'
+      },
+      'sabra-lab-cv-research': {
+        title: 'Autonomous BlueBoat Navigation Research',
+        role: 'Undergraduate Researcher · Georgia Tech',
+        desc: 'Research on perception and autonomous navigation for a BlueBoat surface vessel using computer vision, depth estimation, object detection, and sensor fusion.',
+        longDesc: `
+        <p>I am working on research focused on building an autonomous navigation and perception system for a BlueBoat surface vessel. The project explores how computer vision, depth estimation, object detection, and sensor fusion can help the boat better understand its environment and navigate safely on water.</p>
+
+        <p>My work focuses mainly on the perception side of the system. I have tested and compared different monocular depth estimation models, including Apple Depth Pro, MiDaS, ZoeDepth, and ORB-SLAM-based approaches, to evaluate how well they estimate distance from a single camera feed. A key part of this research is determining which models are accurate enough for navigation while still being lightweight enough to run on a Raspberry Pi 5 onboard the boat.</p>
+
+        <p>I am also contributing to the broader navigation pipeline through YOLOv10-based object detection research, sonar-based position estimation using an Extended Kalman Filter, and high-level navigation logic for autonomous movement. Together, these components help the boat detect obstacles, estimate distance, track its position, and make safer navigation decisions.</p>
+
+        <h4>Technical Focus</h4>
+        <ul>
+          <li>Tested monocular depth estimation models for camera-based obstacle awareness</li>
+          <li>Compared Apple Depth Pro, MiDaS, ZoeDepth, and ORB-SLAM-style approaches</li>
+          <li>Evaluated model performance based on accuracy, depth quality, speed, and Raspberry Pi 5 feasibility</li>
+          <li>Supported YOLOv10 object detection research for identifying obstacles in the boat’s surroundings</li>
+          <li>Worked with sonar-based position estimation using an Extended Kalman Filter</li>
+          <li>Helped design the perception and navigation pipeline for autonomous BlueBoat movement</li>
+        </ul>
+        `,
+        tags: ['Computer Vision','Depth Estimation','YOLOv10','Sensor Fusion','Robotics'],
+        extras: 'Research'
+      }
+    };
+
+      function qs(key) {
+        return new URLSearchParams(window.location.search).get(key);
+      }
+
+      const id = qs('id');
+      const project = PROJECTS[id];
+
+      console.log('project page debug → id=', id, 'foundProject=', !!project);
+
+      if (!project) {
+        // friendly fallback when opened without an id or unknown id
+        document.getElementById('pTitle').textContent = 'No project selected';
+        document.getElementById('pDesc').textContent = 'Open a project from the portfolio (index.html) or use a URL like project.html?id=sidequest.';
+        document.getElementById('pResources').innerHTML = `<a href="index.html">← Back to portfolio</a>`;
+        return;
+      } else {
+        const titleEl = document.getElementById('pTitle');
+        if (project.resources && project.resources.website) {
+          titleEl.innerHTML = `<a href="${project.resources.website}" target="_blank">${project.title}</a>`;
+        } else {
+          titleEl.textContent = project.title;
+        }
+        document.getElementById('pRole').textContent = project.role;
+        document.getElementById('pDesc').textContent = project.desc;
+  // continue with default rendering
+      // long description
+      if (project.longDesc) document.getElementById('pLongDesc').innerHTML = project.longDesc;
+
+      // contributions
+      const contribList = document.getElementById('pContribs');
+      if (project.contributions && project.contributions.length) {
+        project.contributions.forEach(c => {
+          const li = document.createElement('li'); li.textContent = c; contribList.appendChild(li);
+        });
+      } else {
+        // hide contributions heading and list if none
+        const h = document.getElementById('contribHeading'); if (h) h.style.display = 'none';
+        if (contribList) contribList.style.display = 'none';
+      }
+
+      // for BirthdayPal, embed the YouTube video directly below contributions
+      if (id === 'birthdaypal' && project.resources && project.resources.youtube) {
+        // try to extract video id
+        const url = project.resources.youtube;
+        const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{10,})/);
+        const vid = m ? m[1] : null;
+        const container = document.createElement('div');
+        container.className = 'embedded-video';
+        if (vid) {
+          container.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?rel=0" title="BirthdayPal demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else {
+          container.innerHTML = `<a class="btn" href="${url}" target="_blank">Open video on YouTube</a>`;
+        }
+        // insert after contributions list
+        contribList.parentNode.insertBefore(container, contribList.nextSibling);
+      }
+
+  // (no custom renderers)
+
+      // officers
+      const off = document.getElementById('pOfficers');
+      if (project.officers) {
+        const parts = [];
+        if (project.officers.technicalLeaders) parts.push('<strong>Technical Leaders:</strong> ' + project.officers.technicalLeaders.join(', '));
+        if (project.officers.seniorDevelopers) parts.push('<strong>Senior Developers:</strong> ' + project.officers.seniorDevelopers.join(', '));
+        if (project.officers.seniorDesigner) parts.push('<strong>Senior Designer:</strong> ' + project.officers.seniorDesigner);
+        off.innerHTML = parts.join('<br>');
+      } else {
+        const h = document.getElementById('officersHeading'); if (h) h.style.display = 'none';
+        if (off) off.style.display = 'none';
+      }
+
+      // app structure
+      if (project.appStructure) {
+        document.getElementById('pAppStructure').innerHTML = project.appStructure;
+      } else {
+        const h = document.getElementById('structureHeading'); if (h) h.style.display = 'none';
+        const s = document.getElementById('pAppStructure'); if (s) s.style.display = 'none';
+      }
+
+      // render an inline image if provided in resources (e.g., image.png)
+      if (project.resources && project.resources.image) {
+        const imgUrl = project.resources.image;
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.alt = project.title + ' — image';
+        img.style.maxWidth = '100%';
+        img.style.borderRadius = '8px';
+        img.style.marginTop = '12px';
+        // place after appStructure
+        const s = document.getElementById('pAppStructure');
+        if (s && s.parentNode) s.parentNode.insertBefore(img, s.nextSibling);
+      }
+
+      // architecture
+      if (project.architecture) document.getElementById('pArchitecture').innerHTML = project.architecture;
+
+      // naming / viewmodels
+      if (project.naming) document.getElementById('pNaming').innerHTML = project.naming;
+      if (project.viewModels) {
+        const vmEl = document.getElementById('pViewModels');
+        if (vmEl) vmEl.innerHTML = project.viewModels;
+      }
+
+      // git workflow
+      if (project.gitWorkflow) document.getElementById('pGitWorkflow').innerHTML = project.gitWorkflow;
+      if (project.workflowSummary) document.getElementById('pWorkflowSummary').textContent = project.workflowSummary;
+
+      const tags = document.getElementById('pTags');
+      if (project.tags) project.tags.forEach(t => { const s = document.createElement('span'); s.className = 'tag'; s.textContent = t; tags.appendChild(s); });
+
+      document.getElementById('pExtras').textContent = project.extras || '';
+
+      // resources and stats
+      if (project.resources) {
+        const r = document.getElementById('pResources');
+        // prefer a small set of styled buttons/links; make demo link larger/prominent
+  const website = project.resources.website ? `<a class="btn" href="${project.resources.website}" target="_blank">Website</a>` : '';
+  const github = project.resources.github ? `<a class="btn" href="${project.resources.github}" target="_blank">GitHub</a>` : '';
+  // for birthdaypal we'll embed the video inline (no header button), otherwise link out
+  const youtube = project.resources.youtube ? (id === 'birthdaypal' ? '' : `<a class="btn" href="${project.resources.youtube}" target="_blank">YouTube</a>`) : '';
+  const notebook = project.resources.notebook ? `<a id="notebookLink" class="btn" href="${project.resources.notebook}" target="_blank">Notebook</a>` : '';
+  const pdfBtn = project.resources && project.resources.pdf ? `<a id="pdfLink" class="btn" href="${project.resources.pdf}" target="_blank">View PDF</a>` : '';
+  // make the watch/demo button slightly smaller for tastecast and even smaller for sidequest
+  let demoClass = 'btn btn-large';
+  if (id === 'tastecast') demoClass = 'btn btn-medium';
+  if (id === 'sidequest') demoClass = 'btn btn-small';
+  const demo = project.resources.demoVideo ? `<a class="${demoClass}" href="${project.resources.demoVideo}" target="_blank">▶ Watch demo</a>` : '';
+  const devpostBtn = project.resources.devpost ? (id === 'flashfind' ? `<a class="btn" href="${project.resources.devpost}" target="_blank">Open Devpost</a>` : `<button id="openDevpostEmbed" class="btn">Open Devpost</button>`) : '';
+        const misc = [];
+        if (project.resources.readme) misc.push('<strong>Readme</strong>');
+        if (project.resources.activity) misc.push('<strong>Activity</strong>');
+        if (project.resources.customProperties) misc.push('<strong>Custom properties</strong>');
+        const miscHtml = misc.length ? `<div style="margin-top:0.5rem">${misc.join(' · ')}</div>` : '';
+
+        // insert resource buttons next to the title instead of at the bottom
+        const resourcesRow = document.createElement('div');
+  // for tastecast, add wider spacing between links
+  resourcesRow.className = id === 'tastecast' ? 'header-resources header-resources--wide' : 'header-resources';
+  // order: website, github, notebook, youtube, demo, devpost
+  resourcesRow.innerHTML = `${website}${github}${notebook}${pdfBtn}${youtube}${demo}${devpostBtn}`;
+        const titleEl = document.getElementById('pTitle');
+        if (titleEl && titleEl.parentNode) {
+          titleEl.parentNode.insertBefore(resourcesRow, titleEl.nextSibling);
+        }
+        // clear the bottom resources container to avoid duplication; show misc info there if present
+        r.innerHTML = miscHtml || '';
+
+  // If a notebook is provided and it's an HTML export, embed it inline below the long description.
+  if (project.resources.notebook && project.resources.notebook.match(/\.html?$/i)) {
+          // create a responsive iframe container
+          const nbContainer = document.createElement('div');
+          nbContainer.style.marginTop = '12px';
+          nbContainer.style.background = '#0f0f11';
+          nbContainer.style.padding = '8px';
+          nbContainer.style.borderRadius = '8px';
+          nbContainer.innerHTML = `<iframe src="${project.resources.notebook}" style="width:100%;height:70vh;border:0;border-radius:6px"></iframe>`;
+          // insert after the long description container if present, otherwise after the resources row
+          const longDescEl = document.getElementById('pLongDesc');
+          if (longDescEl && longDescEl.parentNode) {
+            longDescEl.parentNode.insertBefore(nbContainer, longDescEl.nextSibling);
+          } else if (resourcesRow && resourcesRow.parentNode) {
+            resourcesRow.parentNode.insertBefore(nbContainer, resourcesRow.nextSibling);
+          }
+          // update notebook link to open in a new tab (keeps behavior) but label it 'Open notebook (new tab)'
+          const nl = document.getElementById('notebookLink');
+          if (nl) nl.textContent = 'Open notebook (new tab)';
+        }
+        // If a PDF resource is provided, embed it inline below the long description as an iframe.
+        if (project.resources.pdf && project.resources.pdf.match(/\.pdf$/i)) {
+          const pdfContainer = document.createElement('div');
+          pdfContainer.style.marginTop = '12px';
+          pdfContainer.style.background = '#0f0f11';
+          pdfContainer.style.padding = '8px';
+          pdfContainer.style.borderRadius = '8px';
+          pdfContainer.innerHTML = `<iframe src="${project.resources.pdf}" style="width:100%;height:70vh;border:0;border-radius:6px"></iframe>`;
+          const longDescEl2 = document.getElementById('pLongDesc');
+          if (longDescEl2 && longDescEl2.parentNode) {
+            longDescEl2.parentNode.insertBefore(pdfContainer, longDescEl2.nextSibling);
+          } else if (resourcesRow && resourcesRow.parentNode) {
+            resourcesRow.parentNode.insertBefore(pdfContainer, resourcesRow.nextSibling);
+          }
+          const pl = document.getElementById('pdfLink'); if (pl) pl.textContent = 'Open PDF (new tab)';
+        }
+
+  // if devpost is present and not flashfind, wire up modal logic
+  if (project.resources.devpost && id !== 'flashfind') {
+          // attach click handler after next tick
+          setTimeout(() => {
+            const btn = document.getElementById('openDevpostEmbed');
+            if (!btn) return;
+            btn.addEventListener('click', () => {
+              const modal = document.getElementById('devpostModal');
+              const iframe = document.getElementById('devpostFrame');
+              const fallback = document.getElementById('devpostFallback');
+              const link = document.getElementById('devpostLink');
+              const url = project.resources.devpost;
+              iframe.src = url;
+              link.href = url;
+              modal.style.display = 'flex';
+              fallback.style.display = 'none';
+              let loaded = false;
+              iframe.onload = () => { loaded = true; fallback.style.display = 'none'; };
+              iframe.onerror = () => { loaded = false; fallback.style.display = 'block'; };
+              setTimeout(() => { if (!loaded) fallback.style.display = 'block'; }, 2000);
+            });
+          }, 0);
+        }
+          // if youtube is present and project is birthdaypal, wire up youtube modal
+          if (project.resources.youtube && id === 'birthdaypal') {
+            setTimeout(() => {
+              const ybtn = document.getElementById('openYoutubeEmbed');
+              if (!ybtn) return;
+              ybtn.addEventListener('click', () => {
+                const modal = document.getElementById('youtubeModal');
+                const iframe = document.getElementById('youtubeFrame');
+                const fallback = document.getElementById('youtubeFallback');
+                const link = document.getElementById('youtubeLink');
+                const url = project.resources.youtube;
+                // attempt to extract video id for embed
+                const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{10,})/);
+                const vid = m ? m[1] : null;
+                iframe.src = vid ? `https://www.youtube.com/embed/${vid}?rel=0` : url;
+                link.href = url;
+                modal.style.display = 'flex';
+                fallback.style.display = 'none';
+                let loaded = false;
+                iframe.onload = () => { loaded = true; fallback.style.display = 'none'; };
+                iframe.onerror = () => { loaded = false; fallback.style.display = 'block'; };
+                setTimeout(() => { if (!loaded) fallback.style.display = 'block'; }, 1500);
+              });
+            }, 0);
+          }
+      }
+      if (project.stats) {
+        document.getElementById('pStats').textContent = `Stars: ${project.stats.stars} · Watchers: ${project.stats.watchers} · Forks: ${project.stats.forks}`;
+      }
+    }
+  });
+  // Devpost modal markup and handlers
+  const modalHtml = `
+  <div id="devpostModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999">
+    <div style="width:90%;max-width:1000px;background:#0f0f11;padding:12px;border-radius:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="color:#f0ede8">Devpost preview</strong>
+        <button id="closeDevpost" class="btn">Close</button>
+      </div>
+      <iframe id="devpostFrame" src="about:blank" style="width:100%;height:65vh;border:0;border-radius:8px"></iframe>
+      <div id="devpostFallback" style="display:none;margin-top:8px;color:#cfcac0">
+        Could not embed Devpost (likely blocked). <a id="devpostLink" href="#" target="_blank">Open on Devpost</a>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+  document.getElementById('closeDevpost').addEventListener('click', () => {
+    const modal = document.getElementById('devpostModal');
+    const iframe = document.getElementById('devpostFrame');
+    modal.style.display = 'none';
+    iframe.src = 'about:blank';
+  });
+  // YouTube modal for BirthdayPal
+  const ytModal = `
+  <div id="youtubeModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:10000">
+    <div style="width:90%;max-width:900px;background:#0f0f11;padding:12px;border-radius:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="color:#f0ede8">Video</strong>
+        <button id="closeYoutube" class="btn">Close</button>
+      </div>
+      <iframe id="youtubeFrame" src="about:blank" style="width:100%;height:56vh;border:0;border-radius:8px"></iframe>
+      <div id="youtubeFallback" style="display:none;margin-top:8px;color:#cfcac0">
+        Could not load embed. <a id="youtubeLink" href="#" target="_blank">Open on YouTube</a>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', ytModal);
+  document.getElementById('closeYoutube').addEventListener('click', () => {
+    const modal = document.getElementById('youtubeModal');
+    const iframe = document.getElementById('youtubeFrame');
+    modal.style.display = 'none';
+    iframe.src = 'about:blank';
+  });
+  </script>
+</body>
+</html>

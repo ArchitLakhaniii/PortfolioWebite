@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { projects, scenes } from "@/data/profile";
+import { hasDetail } from "@/data/projectDetails";
 import SectionHeader from "../SectionHeader";
 import Reveal from "../Reveal";
 import Scene from "./Scene";
@@ -43,6 +45,7 @@ export default function Showcase() {
           <Reveal>
             <ul className="border-t border-line">
               {moreWork.map((p) => {
+                const detail = hasDetail(p.id);
                 const Row = (
                   <div className="grid grid-cols-1 items-baseline gap-2 py-6 sm:grid-cols-[1fr_auto]">
                     <div>
@@ -60,7 +63,12 @@ export default function Showcase() {
                           {p.highlight}
                         </span>
                       )}
-                      {p.github && (
+                      {detail && (
+                        <span className="hidden items-center gap-1.5 font-mono text-[11px] text-faint transition-colors group-hover:text-chalk sm:inline-flex">
+                          Case study
+                        </span>
+                      )}
+                      {(detail || p.github) && (
                         <ArrowIcon className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-chalk" />
                       )}
                     </div>
@@ -68,7 +76,11 @@ export default function Showcase() {
                 );
                 return (
                   <li key={p.id} className="border-b border-line">
-                    {p.github ? (
+                    {detail ? (
+                      <Link href={`/work/${p.id}`} className="group block" aria-label={`${p.title} case study`}>
+                        {Row}
+                      </Link>
+                    ) : p.github ? (
                       <a
                         href={p.github}
                         target="_blank"

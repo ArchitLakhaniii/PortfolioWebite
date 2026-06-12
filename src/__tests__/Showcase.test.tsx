@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Showcase from "@/components/showcase/Showcase";
 import { projects, scenes } from "@/data/profile";
+import { hasDetail } from "@/data/projectDetails";
 
 // framer-motion is mocked and jest.setup's matchMedia stub returns
 // matches: false, so every Scene renders its static (mobile) variant.
@@ -67,5 +68,23 @@ describe("Showcase", () => {
   it("does not duplicate scene-covered projects in the 'More work' index", () => {
     // GitGood is a scene — its title should appear exactly once (the scene heading)
     expect(screen.getAllByText("GitGood")).toHaveLength(1);
+  });
+
+  it("renders a 'View details' link for every scene that has a case study", () => {
+    const withDetail = scenes.filter((s) => hasDetail(s.id));
+    expect(withDetail.length).toBeGreaterThan(0);
+    const links = screen.getAllByRole("link", { name: /view details/i });
+    expect(links).toHaveLength(withDetail.length);
+    links.forEach((a) => expect(a.getAttribute("href")).toMatch(/^\/work\//));
+  });
+
+  it("links each 'More work' project to its case-study page", () => {
+    const sceneIds = new Set(scenes.map((s) => s.id));
+    const moreWork = projects.filter((p) => !sceneIds.has(p.id));
+    moreWork.forEach((p) => {
+      if (!hasDetail(p.id)) return;
+      const link = screen.getByRole("link", { name: new RegExp(`${p.title} case study`, "i") });
+      expect(link).toHaveAttribute("href", `/work/${p.id}`);
+    });
   });
 });

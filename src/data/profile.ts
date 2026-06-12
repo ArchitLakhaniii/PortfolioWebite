@@ -154,6 +154,16 @@ export const projects: Project[] = [
     categories: ["startup"],
     featured: false,
   },
+  {
+    id: "cultfit-meal-planner",
+    title: "CULTFIT Meal-Planner",
+    role: "Product Design Intern · JuniorMBA",
+    description:
+      "Meal-planning app prototype in partnership with CULTFIT India. Designed Concierge, Wizard of Oz, and Piecemeal MVPs with a custom GUI and homepage applying user-centered design principles.",
+    tags: ["UI/UX", "MVP Prototyping", "Product Design"],
+    categories: ["web", "startup"],
+    featured: false,
+  },
 ];
 
 export type Experience = {
