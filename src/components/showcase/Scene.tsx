@@ -119,82 +119,81 @@ function SceneScrub({
     restDelta: 0.001,
   });
 
-  // phase map — framed → expand → immersed → handoff
-  const visualScale = useTransform(p, [0, 0.2, 0.6, 1], [0.42, 0.45, 1, 1.04]);
-  const visualX = useTransform(p, [0, 0.2, 0.6], ["26vw", "25vw", "0vw"]);
-  const visualRadius = useTransform(p, [0.2, 0.6], [56, 0]);
+  // phase map — centered title → zoom in → view-details → handoff
+  const introOpacity = useTransform(p, [0, 0.22, 0.4], [1, 1, 0]);
+  const introScale = useTransform(p, [0, 0.4], [1, 1.6]);
+  const introY = useTransform(p, [0, 0.4], [0, -24]);
 
-  const introOpacity = useTransform(p, [0, 0.28, 0.42], [1, 1, 0]);
-  const introY = useTransform(p, [0.28, 0.42], [0, -48]);
-  const introDetailOpacity = useTransform(p, [0.02, 0.12, 0.28, 0.42], [0, 1, 1, 0]);
-  const introPointer = useTransform(p, (v) => (v > 0.42 ? "none" : "auto"));
+  const detailOpacity = useTransform(p, [0.34, 0.48, 0.86, 0.96], [0, 1, 1, 0]);
+  const detailScale = useTransform(p, [0.34, 0.52], [0.9, 1]);
+  const detailY = useTransform(p, [0.34, 0.52], [44, 0]);
+  const detailPointer = useTransform(p, (v) => (v > 0.44 && v < 0.9 ? "auto" : "none"));
 
-  const overlayOpacity = useTransform(p, [0.6, 0.72, 0.9, 0.98], [0, 1, 1, 0]);
-  const overlayY = useTransform(p, [0.6, 0.72], [36, 0]);
-  const overlayPointer = useTransform(p, (v) => (v > 0.62 && v < 0.95 ? "auto" : "none"));
+  // ambient hue backdrop — breathes as the scene deepens
+  const glowOpacity = useTransform(p, [0, 0.5, 1], [0.35, 0.9, 0.9]);
+  const glowScale = useTransform(p, [0, 1], [1, 1.35]);
 
-  const stageOpacity = useTransform(p, [0.94, 1], [1, 0]);
+  const stageOpacity = useTransform(p, [0.92, 1], [1, 0]);
 
-  // real case-study content revealed as the scene zooms in
+  // real case-study content the scene zooms into
   const preview = scenePreview(scene.id);
   const overview = preview.overview ?? scene.summary;
+  const { hue } = scene;
 
   return (
-    <div ref={runwayRef} className="relative h-[230vh]">
-      <div className="sticky top-0 h-svh overflow-hidden">
+    <div ref={runwayRef} className="relative h-[240vh]">
+      <div className="sticky top-0 h-svh overflow-hidden bg-ink">
         <motion.div style={{ opacity: stageOpacity }} className="relative h-full w-full">
-          {/* visual — full-bleed element, framed right via scale + translate */}
+          {/* ambient hue backdrop — no numeral, no side panel */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(130% 100% at 50% 42%, hsl(${hue} 32% 9%) 0%, #08080c 58%, #070709 100%)`,
+            }}
+          />
           <motion.div
-            style={{ scale: visualScale, x: visualX, borderRadius: visualRadius }}
-            className="absolute inset-0 overflow-hidden border border-line will-change-transform"
-          >
-            <SceneVisual scene={scene} index={index} progress={p} />
-          </motion.div>
+            aria-hidden
+            className="absolute left-1/2 top-[42%] h-[85vh] w-[85vh] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
+            style={{
+              opacity: glowOpacity,
+              scale: glowScale,
+              background: `hsla(${hue} 80% 62% / 0.16)`,
+            }}
+          />
 
-          {/* intro column (framed phase) */}
+          {/* intro — the centered title we zoom into */}
           <motion.div
-            style={{ opacity: introOpacity, y: introY, pointerEvents: introPointer }}
-            className="absolute inset-y-0 left-0 z-10 flex w-[46vw] items-center pl-[7vw] pr-8"
+            style={{ opacity: introOpacity, scale: introScale, y: introY }}
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
           >
-            <div>
-              <div className="flex items-center gap-3 text-faint">
-                <span className="font-mono text-xs tracking-label">
-                  {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
-                </span>
-                <span className="h-px w-6 bg-line" />
-                <span className="eyebrow">{scene.kicker}</span>
-              </div>
-              <h3 className="mt-5 font-display text-4xl font-semibold leading-[1.02] tracking-tightest text-chalk xl:text-5xl">
-                {scene.title}
-              </h3>
-              <p className="mt-3 text-sm font-medium text-accent">{scene.subtitle}</p>
-              <motion.div style={{ opacity: introDetailOpacity }}>
-                <p className="mt-5 max-w-md text-base leading-relaxed text-ghost">
-                  {scene.summary}
-                </p>
-                <div className="mt-6">
-                  <Tags tags={scene.tags} />
-                </div>
-                <div className="mt-7">
-                  <SceneActions scene={scene} />
-                </div>
-              </motion.div>
+            <div className="flex items-center gap-3 text-faint">
+              <span className="font-mono text-xs tracking-label">
+                {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
+              </span>
+              <span className="h-px w-6 bg-line" />
+              <span className="eyebrow">{scene.kicker}</span>
             </div>
+            <h3 className="mt-6 max-w-4xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tightest text-chalk md:text-6xl xl:text-7xl">
+              {scene.title}
+            </h3>
+            <p className="mt-4 text-base font-medium text-accent md:text-lg">
+              {scene.subtitle}
+            </p>
           </motion.div>
 
-          {/* case-study preview card (immersed phase) — real detail
-              content revealed as the scene zooms to full-bleed */}
+          {/* view-details — condensed case study, centered */}
           <motion.div
-            style={{ opacity: overlayOpacity, y: overlayY, pointerEvents: overlayPointer }}
-            className="absolute inset-x-0 bottom-0 z-10 flex justify-start p-[5vw] pb-[8svh]"
+            style={{ opacity: detailOpacity, scale: detailScale, y: detailY, pointerEvents: detailPointer }}
+            className="absolute inset-0 z-20 flex items-center justify-center px-6"
           >
-            <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-black/40 p-7 backdrop-blur-md sm:p-8">
+            <div className="mx-auto w-full max-w-2xl">
               <div className="flex items-center gap-3 text-faint">
-                <span className="eyebrow">{scene.kicker}</span>
-                <span className="h-px w-6 bg-line" />
                 <span className="font-mono text-xs tracking-label">
                   {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
                 </span>
+                <span className="h-px w-6 bg-line" />
+                <span className="eyebrow">{scene.kicker}</span>
               </div>
 
               <h4 className="mt-4 font-display text-4xl font-semibold leading-[1.0] tracking-tightest text-chalk xl:text-5xl">
@@ -202,14 +201,12 @@ function SceneScrub({
               </h4>
               <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>
 
-              <p className="mt-4 line-clamp-2 max-w-xl text-base leading-relaxed text-ghost">
-                {overview}
-              </p>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-ghost">{overview}</p>
 
               {preview.highlights.length > 0 && (
-                <ul className="mt-5 space-y-2">
+                <ul className="mt-6 space-y-2.5">
                   {preview.highlights.map((h, i) => (
-                    <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-ghost">
+                    <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-ghost">
                       <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                       <span className="line-clamp-1">
                         <RichText text={h} />
@@ -220,7 +217,7 @@ function SceneScrub({
               )}
 
               {scene.metrics && (
-                <div className="mt-5">
+                <div className="mt-6">
                   <MetricsInline metrics={scene.metrics} />
                 </div>
               )}
@@ -229,7 +226,7 @@ function SceneScrub({
                 <Tags tags={scene.tags} />
               </div>
 
-              <div className="mt-6">
+              <div className="mt-8">
                 <SceneActions scene={scene} />
               </div>
             </div>
