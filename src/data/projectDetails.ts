@@ -452,3 +452,33 @@ export const projectDetails: Record<string, ProjectDetail> = {
 export const projectDetailSlugs = Object.keys(projectDetails);
 
 export const hasDetail = (id: string): boolean => id in projectDetails;
+
+export type ScenePreview = {
+  overview?: string;
+  highlights: string[];
+  hasDetail: boolean;
+};
+
+/**
+ * Preview content for a cinematic scene's zoomed-in "case-study card".
+ * Pulls ONLY from existing detail data — the project's one-line `desc`
+ * plus either its `contributions` or the first bullet list in `longDesc`.
+ * No invented claims. Returns empty highlights when a scene has no case
+ * study, so the caller can fall back to the scene's own summary.
+ */
+export function scenePreview(id: string): ScenePreview {
+  const d = projectDetails[id];
+  if (!d) return { highlights: [], hasDetail: false };
+
+  let highlights: string[] = [];
+  if (d.contributions?.length) {
+    highlights = d.contributions.slice(0, 3);
+  } else if (d.longDesc) {
+    const firstList = d.longDesc.find(
+      (b): b is Extract<DetailBlock, { type: "list" }> => b.type === "list"
+    );
+    if (firstList) highlights = firstList.items.slice(0, 3);
+  }
+
+  return { overview: d.desc, highlights, hasDetail: true };
+}

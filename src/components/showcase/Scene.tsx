@@ -4,10 +4,11 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import type { Scene as SceneData } from "@/data/profile";
-import { hasDetail } from "@/data/projectDetails";
+import { hasDetail, scenePreview } from "@/data/projectDetails";
 import useDesktopScrub from "@/hooks/useDesktopScrub";
 import Reveal from "../Reveal";
 import SceneVisual from "./SceneVisual";
+import { RichText } from "../detail/RichBlocks";
 import { GitHubIcon, ArrowIcon } from "../Icons";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -24,6 +25,23 @@ function Metrics({ metrics }: { metrics?: SceneData["metrics"] }) {
             {m.value}
           </p>
           <p className="mt-1 text-xs text-ghost">{m.label}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Compact, single-row metrics for the zoomed-in preview card. */
+function MetricsInline({ metrics }: { metrics?: SceneData["metrics"] }) {
+  if (!metrics?.length) return null;
+  return (
+    <div className="flex flex-wrap gap-x-6 gap-y-2">
+      {metrics.map((m) => (
+        <div key={m.label} className="flex items-baseline gap-2">
+          <span className="font-display text-lg font-semibold tracking-tight text-chalk">
+            {m.value}
+          </span>
+          <span className="text-xs text-faint">{m.label}</span>
         </div>
       ))}
     </div>
@@ -117,6 +135,10 @@ function SceneScrub({
 
   const stageOpacity = useTransform(p, [0.94, 1], [1, 0]);
 
+  // real case-study content revealed as the scene zooms in
+  const preview = scenePreview(scene.id);
+  const overview = preview.overview ?? scene.summary;
+
   return (
     <div ref={runwayRef} className="relative h-[230vh]">
       <div className="sticky top-0 h-svh overflow-hidden">
@@ -160,17 +182,56 @@ function SceneScrub({
             </div>
           </motion.div>
 
-          {/* overlay caption (immersed phase) */}
+          {/* case-study preview card (immersed phase) — real detail
+              content revealed as the scene zooms to full-bleed */}
           <motion.div
             style={{ opacity: overlayOpacity, y: overlayY, pointerEvents: overlayPointer }}
-            className="absolute inset-x-0 bottom-0 z-10 p-[7vw] pb-[9svh]"
+            className="absolute inset-x-0 bottom-0 z-10 flex justify-start p-[5vw] pb-[8svh]"
           >
-            <p className="eyebrow">{scene.subtitle}</p>
-            <h4 className="mt-3 max-w-3xl font-display text-5xl font-semibold leading-[0.98] tracking-tightest text-chalk xl:text-6xl">
-              {scene.title}
-            </h4>
-            <div className="mt-7">
-              <Metrics metrics={scene.metrics} />
+            <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-black/40 p-7 backdrop-blur-md sm:p-8">
+              <div className="flex items-center gap-3 text-faint">
+                <span className="eyebrow">{scene.kicker}</span>
+                <span className="h-px w-6 bg-line" />
+                <span className="font-mono text-xs tracking-label">
+                  {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
+                </span>
+              </div>
+
+              <h4 className="mt-4 font-display text-4xl font-semibold leading-[1.0] tracking-tightest text-chalk xl:text-5xl">
+                {scene.title}
+              </h4>
+              <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>
+
+              <p className="mt-4 line-clamp-2 max-w-xl text-base leading-relaxed text-ghost">
+                {overview}
+              </p>
+
+              {preview.highlights.length > 0 && (
+                <ul className="mt-5 space-y-2">
+                  {preview.highlights.map((h, i) => (
+                    <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-ghost">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                      <span className="line-clamp-1">
+                        <RichText text={h} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {scene.metrics && (
+                <div className="mt-5">
+                  <MetricsInline metrics={scene.metrics} />
+                </div>
+              )}
+
+              <div className="mt-6">
+                <Tags tags={scene.tags} />
+              </div>
+
+              <div className="mt-6">
+                <SceneActions scene={scene} />
+              </div>
             </div>
           </motion.div>
         </motion.div>
