@@ -14,15 +14,16 @@ export const profile = {
   location: "Atlanta, GA",
   email: "alakhani41@gatech.edu",
   resumeUrl: "/resume.pdf", // drop your resume at public/resume.pdf
-  availability: "Open to Summer 2026 internships & collaborations",
+  availability: "Open to internships & research collaborations",
   links: {
     github: "https://github.com/ArchitLakhaniii",
     linkedin: "https://linkedin.com/in/architlakhani",
   },
   about: [
     "I'm a Computer Science student at Georgia Tech focused on building practical software products across AI, agentic systems, mobile development, backend systems, and data science.",
-    "My work spans SwiftUI/Firebase iOS apps, AI-powered code analysis tools, LLM pipelines, ML forecasting systems, campus marketplaces, and computer-vision safety navigation research.",
-    "I've interned at Reliance Jio (ML engineering), the National University of Singapore (AI & NLP research), and Emkay Global (quantitative finance), and cofounded two startups — one funded with AED 28,000 by the UAE government.",
+    "I'm currently an AI Research Intern at MBZUAI & GenBio AI, designing biomedical agentic architectures with Claude workflows and agentic ML pipelines — and authoring a research paper on human-in-the-loop design for biomedical ML agents.",
+    "My work also spans SwiftUI/Firebase iOS apps, AI-powered code analysis tools, LLM pipelines, ML forecasting systems, campus marketplaces, and computer-vision safety navigation research.",
+    "I've interned at MBZUAI & GenBio AI (agentic AI research), Reliance Jio (ML engineering), the National University of Singapore (AI & NLP research), and Emkay Global (quantitative finance), and cofounded two startups — one funded with AED 28,000 by the UAE government.",
   ],
 };
 
@@ -176,33 +177,47 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
+    company: "MBZUAI & GenBio AI",
+    role: "AI Research Intern",
+    date: "May 2026 – Present",
+    location: "Abu Dhabi, UAE",
+    bullets: [
+      "Built a biomedical agentic-design architecture with Claude workflows and OpenClaw agentic ML pipelines for BioXArena benchmarking, outperforming other agents by ~9% on average across 76 domain tasks.",
+      "Drove up to ~30% task-level score gains through human-guided model selection, biological feature engineering, cross-validation, and leakage prevention.",
+      "Authoring a research paper on the agentic AI workflow, experimental results, and human-in-the-loop design patterns for biomedical ML agents.",
+    ],
+  },
+  {
     company: "Georgia Tech · College of Computing",
     role: "CS 1331 Teaching Assistant (OOP in Java)",
-    date: "Jan 2026 – Present",
+    date: "Jan – May 2026",
     location: "Atlanta, GA",
     bullets: [
-      "Teaching object-oriented programming in Java to Georgia Tech undergraduates.",
-      "Lead recitations, grade projects, and mentor students through core OOP design concepts.",
+      "Supported 300+ students in Object-Oriented Programming in Java through recitations and office hours.",
+      "Guided students through OOP principles, generics, file I/O, debugging, and software design fundamentals.",
+      "Contributed 200+ hours grading assignments and exams and answering student questions.",
     ],
   },
   {
     company: "Georgia Tech · Sabra Lab",
     role: "Undergraduate Researcher",
-    date: "Jan 2026 – Present",
+    date: "Jan – May 2026",
     location: "Atlanta, GA",
     bullets: [
-      "Developing computer-vision-based safety navigation for autonomous BlueBoat systems.",
-      "Contributing to perception pipelines and safer navigation algorithms.",
+      "Researched autonomous BlueBoat navigation using monocular depth estimation for obstacle awareness.",
+      "Evaluated 4+ SLAM / depth models — Apple Depth Pro, MiDaS, ORB-SLAM2, and ZoeDepth — for Raspberry Pi 5 deployment.",
+      "Supported a real-time perception pipeline with YOLOv10, EKF sonar localization, and GTRI field tests every 1–2 weeks.",
     ],
   },
   {
     company: "GT iOS Club",
     role: "Senior Developer",
-    date: "Jan 2026 – Present",
+    date: "Jan – May 2026",
     location: "Atlanta, GA",
     bullets: [
-      "Building SideQuest, a social adventure iOS app, leading core SwiftUI + Firebase features across quests, feeds, profiles, and leaderboards.",
-      "Won the club's Demo Day Pitch Competition with BirthdayPal.",
+      "Senior iOS Developer on SideQuest, a SwiftUI + Firebase social adventure app used by 100+ testers.",
+      "Built 6+ core features including quest posting, collaborator flows, image uploads, feeds, profiles, and leaderboards.",
+      "Led a team project that won the club's Demo Day Pitch Competition with BirthdayPal.",
     ],
   },
   {
@@ -211,8 +226,8 @@ export const experience: Experience[] = [
     date: "Jul 2025",
     location: "Mumbai, India",
     bullets: [
-      "Quantitative analysis on equity markets using Python and Bloomberg Terminal.",
-      "Studied correlations between cash, futures, and option deltas; practiced delta-neutral hedging, put-call parity, and volatility spreads.",
+      "Analyzed 4+ equity markets using Python and the Bloomberg Terminal to study cash, futures, and options delta correlations, improving delta correlation accuracy by 30%.",
+      "Practiced options strategies including delta-neutral hedging, put-call parity, and volatility spreads to evaluate trading risk-reward.",
     ],
   },
   {
@@ -254,11 +269,11 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "AI / ML",
-    items: ["LangChain", "Hugging Face", "Ollama", "scikit-learn", "pandas", "Gemini", "LLM Pipelines", "Computer Vision", "NLP", "Forecasting"],
+    items: ["Claude", "Agentic AI", "MCP", "OpenClaw", "LangChain", "Hugging Face", "Ollama", "scikit-learn", "pandas", "Gemini", "LLM Pipelines", "Computer Vision", "NLP", "Forecasting"],
   },
   {
     group: "Web & Backend",
-    items: ["Next.js", "React", "Tailwind CSS", "FastAPI", "Flask", "Spring Boot", "MongoDB", "REST APIs"],
+    items: ["Next.js", "React", "Tailwind CSS", "FastAPI", "Flask", "Jinja", "Spring Boot", "MongoDB", "REST APIs"],
   },
   {
     group: "iOS & Mobile",
@@ -271,6 +286,17 @@ export const skills: { group: string; items: string[] }[] = [
   {
     group: "Tools",
     items: ["Git/GitHub", "Vercel", "Jupyter", "Bloomberg Terminal", "Mastra", "Firebase Console"],
+  },
+  {
+    group: "Certifications",
+    items: [
+      "Anthropic · Advanced MCP",
+      "Anthropic · Claude Code in Action",
+      "Harvard CS50x",
+      "Harvard CS50P",
+      "Harvard CS50AI",
+      "IBM · What is Data Science?",
+    ],
   },
 ];
 
@@ -297,6 +323,11 @@ export const achievements: Achievement[] = [
     tag: "Academic",
   },
   {
+    title: "AI Research Intern · MBZUAI & GenBio AI",
+    detail: "Building biomedical agentic AI with Claude workflows; authoring a paper on human-in-the-loop design for biomedical ML agents.",
+    tag: "Research",
+  },
+  {
     title: "Published: Securing Machine Learning Systems",
     detail: "Research on adversarial attacks, bias mitigation, and ML vulnerabilities.",
     tag: "Research",
@@ -307,8 +338,8 @@ export const achievements: Achievement[] = [
     tag: "Research",
   },
   {
-    title: "UAE National Chess Team · 350+ Coaching Hours",
-    detail: "Represented UAE twice at CISCE National Games; coached juniors and differently-abled players.",
+    title: "UAE National Chess Team · Top 0.01% Online",
+    detail: "Represented the UAE twice at the CISCE National Games; ranked in the top 0.01% on the world's largest online chess platform across multiple time formats.",
     tag: "Leadership",
   },
 ];
@@ -348,6 +379,21 @@ export type Scene = {
 };
 
 export const scenes: Scene[] = [
+  {
+    id: "mbzuai-genbio",
+    kind: "role",
+    kicker: "AI Research",
+    title: "Biomedical AI Agents",
+    subtitle: "AI Research Intern · MBZUAI & GenBio AI",
+    summary:
+      "Biomedical agentic-design architecture built with Claude workflows and OpenClaw agentic ML pipelines for BioXArena benchmarking — outperforming other agents by ~9% on average across 76 domain tasks, with a research paper in progress.",
+    metrics: [
+      { value: "+9%", label: "Avg over other agents · 76 tasks" },
+      { value: "~30%", label: "Task-level score gains" },
+    ],
+    tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
+    hue: 265,
+  },
   {
     id: "gitgood",
     kind: "project",

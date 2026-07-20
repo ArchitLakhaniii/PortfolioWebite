@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { profile, stats } from "@/data/profile";
+import CountUp from "./CountUp";
 import { GitHubIcon, LinkedInIcon, MailIcon, ArrowIcon } from "./Icons";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -115,7 +116,7 @@ export default function Hero() {
           {stats.map((s) => (
             <div key={s.label} className="bg-void px-5 py-5">
               <dt className="font-display text-2xl font-semibold tracking-tight text-chalk sm:text-3xl">
-                {s.value}
+                <CountUp value={s.value} />
               </dt>
               <dd className="mt-1.5 text-[11px] leading-snug text-faint">{s.label}</dd>
             </div>

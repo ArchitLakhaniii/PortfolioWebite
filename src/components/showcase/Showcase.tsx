@@ -25,7 +25,7 @@ export default function Showcase() {
           num="02"
           title="Selected Work"
           kicker="Selected Work"
-          sub="Nine chapters — AI agent pipelines, iOS products, ML systems, teaching, and research. Scroll through each one."
+          sub="Ten chapters — agentic AI research, iOS products, ML systems, teaching, and more. Scroll through each one."
         />
       </div>
 
