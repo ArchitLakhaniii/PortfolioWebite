@@ -83,7 +83,7 @@ export default function WorkDetailPage({ params }: { params: { slug: string } })
             {detail.extras}
           </p>
         )}
-        <h1 className="mt-4 text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tightest text-chalk sm:text-5xl">
+        <h1 className="font-wide mt-4 text-balance text-3xl uppercase leading-[0.98] text-chalk sm:text-5xl">
           {detail.title}
         </h1>
         <p className="mt-3 text-base font-medium text-ghost">{detail.role}</p>

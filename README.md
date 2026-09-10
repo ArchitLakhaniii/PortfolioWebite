@@ -19,11 +19,14 @@ Edit that file to update:
 | Export | Controls |
 |---|---|
 | `profile` | Name, tagline, email, links, about paragraphs, availability badge |
-| `stats` | The 4 quick-stat tiles in the hero terminal card |
-| `projects` | Project cards (set `featured: true` for the glow strip + badge) |
-| `experience` | Experience timeline entries |
+| `stats` | The 4 count-up stat tiles in the hero |
+| `ticker` | The two scrolling highlight rows under the hero |
+| `projects` | The "More work" index (ids shared with `scenes` are skipped) |
+| `scenes` | The pinned, scroll-driven Selected Work chapters |
+| `experience` | Expandable experience rows |
 | `skills` | Skill groups and tags |
-| `achievements` | Achievement cards (tag controls badge color) |
+| `spotlight` | The featured callout at the top of Recognition |
+| `achievements` | Recognition list (tag is the small label) |
 | `navLinks` | Navigation menu items |
 
 No component changes needed — every section reads from this file.

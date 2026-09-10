@@ -133,6 +133,10 @@ function SceneScrub({
   const glowOpacity = useTransform(p, [0, 0.5, 1], [0.35, 0.9, 0.9]);
   const glowScale = useTransform(p, [0, 1], [1, 1.35]);
 
+  // oversized hollow index numeral — rushes past the camera first
+  const numScale = useTransform(p, [0, 0.4], [1, 2.6]);
+  const numOpacity = useTransform(p, [0, 0.28], [1, 0]);
+
   const stageOpacity = useTransform(p, [0.92, 1], [1, 0]);
 
   // real case-study content the scene zooms into
@@ -162,6 +166,20 @@ function SceneScrub({
             }}
           />
 
+          {/* hollow index numeral behind the title */}
+          <motion.div
+            aria-hidden
+            style={{ opacity: numOpacity, scale: numScale }}
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
+            <span
+              className="text-outline-faint font-wide select-none leading-none"
+              style={{ fontSize: "min(44vw, 72svh)" }}
+            >
+              {pad(index + 1)}
+            </span>
+          </motion.div>
+
           {/* intro — the centered title we zoom into */}
           <motion.div
             style={{ opacity: introOpacity, scale: introScale, y: introY }}
@@ -174,10 +192,10 @@ function SceneScrub({
               <span className="h-px w-6 bg-line" />
               <span className="eyebrow">{scene.kicker}</span>
             </div>
-            <h3 className="mt-6 max-w-4xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tightest text-chalk md:text-6xl xl:text-7xl">
+            <h3 className="font-wide mt-7 max-w-5xl text-balance text-[clamp(2.75rem,5.6vw,5.25rem)] uppercase leading-[0.92] text-chalk">
               {scene.title}
             </h3>
-            <p className="mt-4 text-base font-medium text-accent md:text-lg">
+            <p className="mt-5 font-serif text-xl italic text-accent md:text-2xl">
               {scene.subtitle}
             </p>
           </motion.div>
@@ -196,7 +214,7 @@ function SceneScrub({
                 <span className="eyebrow">{scene.kicker}</span>
               </div>
 
-              <h4 className="mt-4 font-display text-4xl font-semibold leading-[1.0] tracking-tightest text-chalk xl:text-5xl">
+              <h4 className="font-wide mt-4 text-[clamp(2rem,3.4vw,3rem)] uppercase leading-[0.95] text-chalk">
                 {scene.title}
               </h4>
               <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>
@@ -264,7 +282,7 @@ function SceneStatic({
             <span className="h-px w-6 bg-line" />
             <span className="eyebrow">{scene.kicker}</span>
           </div>
-          <h3 className="mt-4 font-display text-3xl font-semibold tracking-tight text-chalk">
+          <h3 className="font-wide mt-4 text-2xl uppercase leading-tight text-chalk sm:text-3xl">
             {scene.title}
           </h3>
           <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>

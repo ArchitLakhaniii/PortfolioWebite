@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, profile } from "@/data/profile";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -46,22 +48,36 @@ export default function Nav() {
         <a
           href="#top"
           aria-label="Back to top"
-          className="grid h-9 w-9 place-items-center rounded-lg border border-line font-display text-sm font-semibold tracking-tight text-chalk transition-colors hover:border-white/25"
+          className="font-wide grid h-9 w-9 place-items-center rounded-lg border border-line text-[13px] text-chalk transition-colors hover:border-accent/50"
         >
           {profile.initials}
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map((l) => {
+        <ul className="hidden items-center gap-0.5 md:flex">
+          {navLinks.map((l, i) => {
             const isActive = active === l.href.replace("#", "");
             return (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
+                  className={`relative isolate flex items-baseline gap-1 rounded-full px-3.5 py-1.5 text-[13px] transition-colors ${
                     isActive ? "text-chalk" : "text-ghost hover:text-chalk"
                   }`}
                 >
+                  {/* sliding pill behind the active section */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-white/[0.06]"
+                      transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                    />
+                  )}
+                  <span
+                    aria-hidden
+                    className={`font-mono text-[9px] transition-colors ${isActive ? "text-accent" : "text-faint"}`}
+                  >
+                    {pad(i + 1)}
+                  </span>
                   {l.label}
                 </a>
               </li>
@@ -96,15 +112,18 @@ export default function Nav() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden border-b border-line bg-void/95 backdrop-blur-xl md:hidden"
           >
-            <ul className="flex flex-col gap-1 px-6 py-4">
-              {navLinks.map((l) => (
-                <li key={l.href}>
+            <ul className="flex flex-col px-6 py-4">
+              {navLinks.map((l, i) => (
+                <li key={l.href} className="border-b border-hairline">
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block py-2 text-base text-ghost transition-colors hover:text-chalk"
+                    className="flex items-baseline gap-3 py-3 text-ghost transition-colors hover:text-chalk"
                   >
-                    {l.label}
+                    <span aria-hidden className="font-mono text-[10px] text-faint">
+                      {pad(i + 1)}
+                    </span>
+                    <span className="font-wide text-xl uppercase">{l.label}</span>
                   </a>
                 </li>
               ))}
@@ -112,7 +131,7 @@ export default function Nav() {
                 <a
                   href={`mailto:${profile.email}`}
                   onClick={() => setOpen(false)}
-                  className="block py-2 text-base text-chalk"
+                  className="block pt-5 text-base text-chalk"
                 >
                   Get in touch →
                 </a>

@@ -344,6 +344,41 @@ export const achievements: Achievement[] = [
   },
 ];
 
+// ============================================================
+// HIGHLIGHT TICKER — the two marquee rows under the hero.
+// Every item restates a fact from elsewhere in this file.
+// ============================================================
+export const ticker = {
+  primary: [
+    "Georgia Tech CS · 4.00 GPA",
+    "AI Research · MBZUAI & GenBio AI",
+    "ML Engineering · Reliance Jio",
+    "AI & NLP Research · NUS",
+    "AED 28K UAE Government Funding",
+    "GT iOS Club Demo Day Winner",
+    "UAE National Chess Team",
+  ],
+  secondary: [
+    "Agentic AI",
+    "LLM Pipelines",
+    "iOS · SwiftUI",
+    "Backend Systems",
+    "Computer Vision",
+    "ML Forecasting",
+    "Startup Cofounder",
+    "Researcher",
+  ],
+};
+
+// Featured callout at the top of the Recognition section.
+export const spotlight = {
+  value: "AED 28K",
+  label: "UAE Government Funding",
+  detail:
+    "Awarded to EunoKinetix, the AI fleet-optimization startup I cofounded — Top 3 among UAE entrepreneurship projects.",
+  watermark: "UAE",
+};
+
 export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Work", href: "#projects" },

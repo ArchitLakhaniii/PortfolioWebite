@@ -43,7 +43,8 @@ export default function CountUp({
     const el = ref.current;
     if (!el) return;
     const parsed = parse(value);
-    if (!parsed || reduce) {
+    // no observer (old browsers, jsdom): just show the final value
+    if (!parsed || reduce || typeof IntersectionObserver === "undefined") {
       el.textContent = value;
       return;
     }

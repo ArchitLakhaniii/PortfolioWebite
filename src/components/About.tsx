@@ -14,7 +14,7 @@ const facts: [string, string][] = [
 export default function About() {
   return (
     <Section id="about">
-      <SectionHeader num="01" title="About" kicker="About" />
+      <SectionHeader num="01" title="About" kicker="About" accent="the short version." />
       <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-20">
         <Reveal>
           <div className="space-y-6">

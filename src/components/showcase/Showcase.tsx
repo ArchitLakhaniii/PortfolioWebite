@@ -25,6 +25,7 @@ export default function Showcase() {
           num="02"
           title="Selected Work"
           kicker="Selected Work"
+          accent="chapter by chapter."
           sub="Ten chapters — agentic AI research, iOS products, ML systems, teaching, and more. Scroll through each one."
         />
       </div>
@@ -49,7 +50,7 @@ export default function Showcase() {
                 const Row = (
                   <div className="grid grid-cols-1 items-baseline gap-2 py-6 sm:grid-cols-[1fr_auto]">
                     <div>
-                      <h4 className="text-lg font-medium text-chalk transition-colors group-hover:text-accent">
+                      <h4 className="font-wide text-base uppercase text-chalk transition-colors group-hover:text-accent sm:text-lg">
                         {p.title}
                       </h4>
                       <p className="mt-1 text-sm text-faint">{p.role}</p>
