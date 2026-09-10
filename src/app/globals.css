@@ -120,6 +120,13 @@ body {
   --c: var(--signal);
 }
 
+/* hide the native pointer while the custom reticle is mounted (Cursor.tsx
+   adds this class only for fine pointers without reduced motion) */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
 /* cursor reticle (Cursor.tsx) — a small HUD frame that turns signal */
 .reticle {
   --c: rgba(237, 234, 226, 0.55);

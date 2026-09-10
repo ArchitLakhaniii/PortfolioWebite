@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Link from "next/link";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import type { Scene as SceneData } from "@/data/profile";
@@ -8,6 +8,7 @@ import { hasDetail, scenePreview } from "@/data/projectDetails";
 import useDesktopScrub from "@/hooks/useDesktopScrub";
 import Reveal from "../Reveal";
 import SceneVisual from "./SceneVisual";
+import { REVEALS } from "./reveals";
 import { RichText } from "../detail/RichBlocks";
 import { GitHubIcon, ArrowIcon } from "../Icons";
 
@@ -21,9 +22,7 @@ function Metrics({ metrics }: { metrics?: SceneData["metrics"] }) {
     <div className="flex flex-wrap gap-x-8 gap-y-4">
       {metrics.map((m) => (
         <div key={m.label}>
-          <p className="font-display text-2xl font-semibold tracking-tight text-chalk sm:text-3xl">
-            {m.value}
-          </p>
+          <p className="font-dot text-2xl text-chalk sm:text-3xl">{m.value}</p>
           <p className="mt-1 text-xs text-ghost">{m.label}</p>
         </div>
       ))}
@@ -31,16 +30,14 @@ function Metrics({ metrics }: { metrics?: SceneData["metrics"] }) {
   );
 }
 
-/** Compact, single-row metrics for the zoomed-in preview card. */
+/** Compact, single-row metrics for the pinned case-study panel. */
 function MetricsInline({ metrics }: { metrics?: SceneData["metrics"] }) {
   if (!metrics?.length) return null;
   return (
     <div className="flex flex-wrap gap-x-6 gap-y-2">
       {metrics.map((m) => (
         <div key={m.label} className="flex items-baseline gap-2">
-          <span className="font-display text-lg font-semibold tracking-tight text-chalk">
-            {m.value}
-          </span>
+          <span className="font-dot text-lg text-accent">{m.value}</span>
           <span className="text-xs text-faint">{m.label}</span>
         </div>
       ))}
@@ -119,29 +116,82 @@ function SceneScrub({
     restDelta: 0.001,
   });
 
-  // phase map — centered title → zoom in → view-details → handoff
-  const introOpacity = useTransform(p, [0, 0.22, 0.4], [1, 1, 0]);
-  const introScale = useTransform(p, [0, 0.4], [1, 1.6]);
-  const introY = useTransform(p, [0, 0.4], [0, -24]);
-
-  const detailOpacity = useTransform(p, [0.34, 0.48, 0.86, 0.96], [0, 1, 1, 0]);
-  const detailScale = useTransform(p, [0.34, 0.52], [0.9, 1]);
-  const detailY = useTransform(p, [0.34, 0.52], [44, 0]);
-  const detailPointer = useTransform(p, (v) => (v > 0.44 && v < 0.9 ? "auto" : "none"));
-
-  // ambient hue backdrop — breathes as the scene deepens
-  const glowOpacity = useTransform(p, [0, 0.5, 1], [0.35, 0.9, 0.9]);
-  const glowScale = useTransform(p, [0, 1], [1, 1.35]);
-
-  // oversized hollow index numeral — rushes past the camera first
-  const numScale = useTransform(p, [0, 0.4], [1, 2.6]);
+  // shared stage layers: dot-grid push-in, index numeral, final handoff
+  const gridOpacity = useTransform(p, [0, 0.5, 1], [0.35, 0.9, 0.9]);
+  const gridScale = useTransform(p, [0, 1], [1, 1.35]);
+  const numScale = useTransform(p, [0, 0.4], [1, 1.5]);
   const numOpacity = useTransform(p, [0, 0.28], [1, 0]);
-
   const stageOpacity = useTransform(p, [0.92, 1], [1, 0]);
 
-  // real case-study content the scene zooms into
+  // real case-study content the scene transitions into
   const preview = scenePreview(scene.id);
   const overview = preview.overview ?? scene.summary;
+  const reveal = scene.reveal ?? "zoom";
+  const Effect = REVEALS[reveal];
+
+  const renderIntro = (title?: ReactNode) => (
+    <>
+      <div className="flex items-center gap-3 text-faint">
+        <span className="font-mono text-xs tracking-label">
+          {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
+        </span>
+        <span className="h-px w-6 bg-line" />
+        <span className="eyebrow">{scene.kicker}</span>
+      </div>
+      <h3 className="font-wide mt-7 max-w-5xl text-balance text-[clamp(2.75rem,5.6vw,5.25rem)] uppercase leading-[0.92] text-chalk">
+        {title ?? scene.title}
+      </h3>
+      <p className="mt-6 font-mono text-sm uppercase tracking-label text-accent">
+        {scene.subtitle}
+      </p>
+    </>
+  );
+
+  const detail = (
+    <div className="mx-auto w-full max-w-2xl">
+      <div className="flex items-center gap-3 text-faint">
+        <span className="font-mono text-xs tracking-label">
+          {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
+        </span>
+        <span className="h-px w-6 bg-line" />
+        <span className="eyebrow">{scene.kicker}</span>
+      </div>
+
+      <h4 className="font-wide mt-4 text-[clamp(2rem,3.4vw,3rem)] uppercase leading-[0.95] text-chalk">
+        {scene.title}
+      </h4>
+      <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>
+
+      <p className="mt-5 max-w-xl text-base leading-relaxed text-ghost">{overview}</p>
+
+      {preview.highlights.length > 0 && (
+        <ul className="mt-6 space-y-2.5">
+          {preview.highlights.map((h, i) => (
+            <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-ghost">
+              <span className="mt-2 h-1 w-1 shrink-0 bg-accent" />
+              <span className="line-clamp-1">
+                <RichText text={h} />
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {scene.metrics && (
+        <div className="mt-6">
+          <MetricsInline metrics={scene.metrics} />
+        </div>
+      )}
+
+      <div className="mt-6">
+        <Tags tags={scene.tags} />
+      </div>
+
+      <div className="mt-8">
+        <SceneActions scene={scene} />
+      </div>
+    </div>
+  );
 
   return (
     <div ref={runwayRef} className="relative h-[240vh]">
@@ -151,12 +201,10 @@ function SceneScrub({
           <motion.div
             aria-hidden
             className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_72%)]"
-            style={{ opacity: glowOpacity, scale: glowScale }}
+            style={{ opacity: gridOpacity, scale: gridScale }}
           />
-          {/* viewfinder brackets */}
-          <div aria-hidden className="hud-frame pointer-events-none absolute inset-x-10 bottom-10 top-24" />
 
-          {/* hollow index numeral behind the title */}
+          {/* dot-matrix index numeral behind the title */}
           <motion.div
             aria-hidden
             style={{ opacity: numOpacity, scale: numScale }}
@@ -170,75 +218,17 @@ function SceneScrub({
             </span>
           </motion.div>
 
-          {/* intro — the centered title we zoom into */}
-          <motion.div
-            style={{ opacity: introOpacity, scale: introScale, y: introY }}
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
+          {/* this scene's transition: intro → case study */}
+          <Effect p={p} renderIntro={renderIntro} detail={detail} title={scene.title} />
+
+          {/* viewfinder brackets + transition readout, above every layer */}
+          <div aria-hidden className="hud-frame pointer-events-none absolute inset-x-10 bottom-10 top-24 z-40" />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-12 right-14 z-40 font-mono text-[10px] uppercase tracking-label text-faint"
           >
-            <div className="flex items-center gap-3 text-faint">
-              <span className="font-mono text-xs tracking-label">
-                {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
-              </span>
-              <span className="h-px w-6 bg-line" />
-              <span className="eyebrow">{scene.kicker}</span>
-            </div>
-            <h3 className="font-wide mt-7 max-w-5xl text-balance text-[clamp(2.75rem,5.6vw,5.25rem)] uppercase leading-[0.92] text-chalk">
-              {scene.title}
-            </h3>
-            <p className="mt-6 font-mono text-sm uppercase tracking-label text-accent">
-              {scene.subtitle}
-            </p>
-          </motion.div>
-
-          {/* view-details — condensed case study, centered */}
-          <motion.div
-            style={{ opacity: detailOpacity, scale: detailScale, y: detailY, pointerEvents: detailPointer }}
-            className="absolute inset-0 z-20 flex items-center justify-center px-6"
-          >
-            <div className="mx-auto w-full max-w-2xl">
-              <div className="flex items-center gap-3 text-faint">
-                <span className="font-mono text-xs tracking-label">
-                  {pad(index + 1)} <span className="text-faint/60">/ {pad(total)}</span>
-                </span>
-                <span className="h-px w-6 bg-line" />
-                <span className="eyebrow">{scene.kicker}</span>
-              </div>
-
-              <h4 className="font-wide mt-4 text-[clamp(2rem,3.4vw,3rem)] uppercase leading-[0.95] text-chalk">
-                {scene.title}
-              </h4>
-              <p className="mt-2 text-sm font-medium text-accent">{scene.subtitle}</p>
-
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ghost">{overview}</p>
-
-              {preview.highlights.length > 0 && (
-                <ul className="mt-6 space-y-2.5">
-                  {preview.highlights.map((h, i) => (
-                    <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-ghost">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                      <span className="line-clamp-1">
-                        <RichText text={h} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {scene.metrics && (
-                <div className="mt-6">
-                  <MetricsInline metrics={scene.metrics} />
-                </div>
-              )}
-
-              <div className="mt-6">
-                <Tags tags={scene.tags} />
-              </div>
-
-              <div className="mt-8">
-                <SceneActions scene={scene} />
-              </div>
-            </div>
-          </motion.div>
+            {pad(index + 1)} · {reveal}
+          </div>
         </motion.div>
       </div>
     </div>
