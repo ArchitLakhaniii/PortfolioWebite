@@ -2,9 +2,17 @@ import { render, screen } from "@testing-library/react";
 import Hero from "@/components/Hero";
 import { profile, stats } from "@/data/profile";
 
+// Reports every observed element as visible, so CountUp runs its
+// (mocked, instant) count-up and lands on the final stat value.
 beforeAll(() => {
   global.IntersectionObserver = class {
-    observe() {}
+    constructor(private cb: IntersectionObserverCallback) {}
+    observe(target: Element) {
+      this.cb(
+        [{ isIntersecting: true, target } as IntersectionObserverEntry],
+        this as unknown as IntersectionObserver
+      );
+    }
     unobserve() {}
     disconnect() {}
   } as unknown as typeof IntersectionObserver;

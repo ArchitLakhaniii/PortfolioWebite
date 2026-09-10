@@ -71,8 +71,15 @@ const useReducedMotion = () => false;
 const useMotionValue = (v) => motionValueStub(v);
 const useMotionValueEvent = () => {};
 const useAnimation = () => ({ start: () => Promise.resolve(), stop: () => {} });
+// imperative animate(): jump straight to the end value (used by CountUp)
+const animate = (_from, to, opts = {}) => {
+  if (opts.onUpdate) opts.onUpdate(to);
+  if (opts.onComplete) opts.onComplete();
+  return { stop: () => {} };
+};
 
 module.exports = {
+  animate,
   motion,
   AnimatePresence,
   useScroll,

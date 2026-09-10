@@ -1,5 +1,8 @@
 # dependencies
 /node_modules
+# iCloud-excluded install: node_modules -> node_modules.nosync/node_modules
+# (the inner "node_modules" name keeps jest/tsc/webpack ignore rules working)
+/node_modules.nosync
 
 # next.js
 /.next/
