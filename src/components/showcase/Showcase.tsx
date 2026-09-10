@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { projects, scenes } from "@/data/profile";
 import { hasDetail } from "@/data/projectDetails";
-import SectionHeader from "../SectionHeader";
 import Reveal from "../Reveal";
 import Scene from "./Scene";
 import { ArrowIcon } from "../Icons";
@@ -19,16 +18,7 @@ export default function Showcase() {
   const moreWork = projects.filter((p) => !sceneIds.has(p.id));
 
   return (
-    <section id="projects" className="relative scroll-mt-24">
-      <div className="mx-auto max-w-content px-6 pb-4 pt-28 sm:px-8 md:pt-36">
-        <SectionHeader
-          num="02"
-          title="Selected Work"
-          kicker="Selected Work"
-          meta={`${String(scenes.length).padStart(2, "0")} chapters`}
-          sub="Ten chapters — agentic AI research, iOS products, ML systems, teaching, and more. Scroll through each one."
-        />
-      </div>
+    <section id="projects" className="relative">
 
       {/* the reel — plain wrapper, no transforms (sticky inside) */}
       <div>

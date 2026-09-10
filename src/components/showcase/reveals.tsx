@@ -356,7 +356,75 @@ function Decode({ p, renderIntro, detail, title }: RevealProps) {
   );
 }
 
+/* ── diagonal — a slanted signal edge slices across the frame ─ */
+function Diagonal({ p, renderIntro, detail }: RevealProps) {
+  // x-position (%) of the slash's top end; its bottom end trails by 20%
+  const e = useTransform(p, [0.22, 0.52], [120, -20]);
+  const eBottom = useTransform(e, (v) => v - 20);
+  const introClip = useTransform(e, (v) => `polygon(0 0, ${v}% 0, ${v - 20}% 100%, 0 100%)`);
+  const detailClip = useTransform(e, (v) => `polygon(${v}% 0, 100% 0, 100% 100%, ${v - 20}% 100%)`);
+  const lineOpacity = useTransform(p, [0.2, 0.25, 0.47, 0.52], [0, 1, 1, 0]);
+  const dExit = useDetailExit(p);
+  const pe = useDetailPointer(p);
+  return (
+    <>
+      <motion.div style={{ clipPath: introClip }} className={INTRO}>
+        {renderIntro()}
+      </motion.div>
+      <motion.div style={{ clipPath: detailClip, opacity: dExit, pointerEvents: pe }} className={DETAIL}>
+        {detail}
+      </motion.div>
+      <motion.svg
+        aria-hidden
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        style={{ opacity: lineOpacity }}
+        className="pointer-events-none absolute inset-0 z-30 h-full w-full text-accent"
+      >
+        <motion.line
+          x1={e}
+          y1={0}
+          x2={eBottom}
+          y2={100}
+          stroke="currentColor"
+          strokeWidth={1}
+          vectorEffect="non-scaling-stroke"
+        />
+      </motion.svg>
+    </>
+  );
+}
+
+/* ── crt — the title collapses to a scanline, the case study powers on ─ */
+function Crt({ p, renderIntro, detail }: RevealProps) {
+  const iScaleY = useTransform(p, [0.2, 0.36], [1, 0.01]);
+  const iScaleX = useTransform(p, [0.2, 0.36], [1, 1.2]);
+  const iOpacity = useTransform(p, [0.34, 0.4], [1, 0]);
+  const lineScale = useTransform(p, [0.32, 0.38, 0.42], [0.2, 1, 0]);
+  const lineOpacity = useTransform(p, [0.32, 0.36, 0.42], [0, 1, 0]);
+  const dScaleY = useTransform(p, [0.4, 0.52], [0.01, 1]);
+  const dOpacity = useTransform(p, [0.39, 0.42, 0.86, 0.96], [0, 1, 1, 0]);
+  const pe = useDetailPointer(p);
+  return (
+    <>
+      <motion.div style={{ scaleY: iScaleY, scaleX: iScaleX, opacity: iOpacity }} className={INTRO}>
+        {renderIntro()}
+      </motion.div>
+      <motion.div style={{ scaleY: dScaleY, opacity: dOpacity, pointerEvents: pe }} className={DETAIL}>
+        {detail}
+      </motion.div>
+      <motion.div
+        aria-hidden
+        style={{ scaleX: lineScale, opacity: lineOpacity }}
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-30 h-px bg-chalk"
+      />
+    </>
+  );
+}
+
 export const REVEALS: Record<SceneReveal, (props: RevealProps) => JSX.Element> = {
+  diagonal: Diagonal,
+  crt: Crt,
   zoom: Zoom,
   split: Split,
   flip: Flip,

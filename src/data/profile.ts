@@ -408,8 +408,8 @@ export const navLinks = [
 // ============================================================
 // CINEMATIC SHOWCASE SCENES
 // Each scene is one pinned, scroll-driven chapter on the site.
-// Wording is reused from `projects` / `experience` above —
-// edit those for content, edit here for scene presentation.
+// ORDER: resume Experience order first, then FlashFind (the
+// resume's project), then everything else.
 // Scene ids reuse project ids where they cover the same work,
 // so the "More work" index can exclude them automatically.
 // ============================================================
@@ -427,7 +427,9 @@ export type SceneReveal =
   | "tiles"
   | "slide"
   | "stack"
-  | "decode";
+  | "decode"
+  | "diagonal"
+  | "crt";
 
 export type Scene = {
   id: string;
@@ -445,6 +447,40 @@ export type Scene = {
 };
 
 export const scenes: Scene[] = [
+  // ── resume Experience, in resume order ──────────────────
+  {
+    id: "gt-ios-club",
+    kind: "role",
+    kicker: "iOS Engineering",
+    title: "GT iOS Club",
+    subtitle: "Senior iOS Developer / Tech Lead",
+    summary:
+      "Shipped SideQuest to 100+ testers with 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, and reactions — then selected to lead a 20-member iOS team for Fall 2026, owning architecture, sprint planning, code reviews, and Git workflows. Won the club's Demo Day Pitch Competition with BirthdayPal.",
+    metrics: [
+      { value: "100+", label: "SideQuest testers" },
+      { value: "20", label: "Engineers led · Fall 2026" },
+      { value: "Winner", label: "Demo Day Pitch Competition" },
+    ],
+    tags: ["SwiftUI", "Firebase", "Leadership"],
+    hue: 145,
+    reveal: "stack",
+  },
+  {
+    id: "cs1331-ta",
+    kind: "role",
+    kicker: "Teaching",
+    title: "CS 1331 Teaching Assistant",
+    subtitle: "Georgia Tech · College of Computing",
+    summary:
+      "Supporting 300+ students in Java and object-oriented programming through recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging — resolving 50+ unique implementation errors every week.",
+    metrics: [
+      { value: "300+", label: "Students supported" },
+      { value: "50+", label: "Java errors resolved weekly" },
+    ],
+    tags: ["Java", "OOP", "Mentorship"],
+    hue: 45,
+    reveal: "slide",
+  },
   {
     id: "mbzuai-genbio",
     kind: "role",
@@ -462,6 +498,71 @@ export const scenes: Scene[] = [
     hue: 265,
     reveal: "decode",
   },
+  {
+    id: "emkay-analytics",
+    kind: "role",
+    kicker: "Quant Analytics",
+    title: "Derivatives Analytics",
+    subtitle: "Data Analytics Intern · Emkay Global",
+    summary:
+      "Processed Bloomberg derivatives data with Python, pandas, and NumPy to improve delta correlation accuracy by 30% across 4+ equity markets, applying statistical and time-series techniques to pricing, volatility, and cross-market relationships.",
+    metrics: [
+      { value: "+30%", label: "Delta correlation accuracy" },
+      { value: "4+", label: "Equity markets" },
+    ],
+    tags: ["Python", "pandas", "NumPy", "Bloomberg", "Time Series"],
+    hue: 100,
+    reveal: "diagonal",
+  },
+  {
+    id: "text-to-sql",
+    kind: "project",
+    kicker: "ML Engineering",
+    title: "Jio Text-to-SQL LLM",
+    subtitle: "ML Intern · Reliance Jio",
+    summary:
+      "LLM pipeline translating natural language into SQL for structured-data retrieval. Fine-tuning with Hugging Face Transformers and LangChain raised translation accuracy by 8%; an end-to-end LangChain + Ollama + SQL pipeline cut query-generation time by 50% and improved downstream retrieval accuracy by 60%.",
+    metrics: [
+      { value: "+8%", label: "Text-to-SQL translation accuracy" },
+      { value: "−50%", label: "Query-generation time" },
+      { value: "+60%", label: "Downstream retrieval accuracy" },
+    ],
+    tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
+    hue: 280,
+    reveal: "scan",
+  },
+  {
+    id: "nus-ml-nlp",
+    kind: "project",
+    kicker: "AI & NLP Research",
+    title: "AI / NLP Predictive Models",
+    subtitle: "AI & NLP Intern · NUS",
+    summary:
+      "Churn-model experimentation across 6+ ML approaches — ANN, CNN, RNN, regression, clustering, and decision trees — on telecom data, forecasting churn up to 1.5 years ahead, plus NLP and computer-vision apps with Amazon Lex and Rekognition.",
+    metrics: [
+      { value: "6+", label: "ML approaches compared" },
+      { value: "1.5 yrs", label: "Churn forecasting horizon" },
+    ],
+    tags: ["Python", "ANN", "CNN", "Amazon Lex", "Rekognition"],
+    hue: 15,
+    reveal: "crt",
+  },
+  // ── resume project ──────────────────────────────────────
+  {
+    id: "flashfind",
+    kind: "project",
+    kicker: "Full-Stack ML",
+    title: "FlashFind",
+    subtitle: "Full-Stack / ML Developer",
+    summary:
+      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
+    metrics: [{ value: "400+", label: "Labeled training examples" }],
+    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
+    hue: 330,
+    reveal: "tiles",
+    github: "https://github.com/ArchitLakhaniii",
+  },
+  // ── everything else ─────────────────────────────────────
   {
     id: "gitgood",
     kind: "project",
@@ -502,23 +603,6 @@ export const scenes: Scene[] = [
     github: "https://github.com/ArchitLakhaniii",
   },
   {
-    id: "text-to-sql",
-    kind: "project",
-    kicker: "ML Engineering",
-    title: "Jio Text-to-SQL LLM",
-    subtitle: "ML Intern · Reliance Jio",
-    summary:
-      "LLM pipeline translating natural language into SQL for structured-data retrieval. Fine-tuning with Hugging Face Transformers and LangChain raised translation accuracy by 8%; an end-to-end LangChain + Ollama + SQL pipeline cut query-generation time by 50% and improved downstream retrieval accuracy by 60%.",
-    metrics: [
-      { value: "+8%", label: "Text-to-SQL translation accuracy" },
-      { value: "−50%", label: "Query-generation time" },
-      { value: "+60%", label: "Downstream retrieval accuracy" },
-    ],
-    tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
-    hue: 280,
-    reveal: "scan",
-  },
-  {
     id: "eunokinetix",
     kind: "project",
     kicker: "Founder",
@@ -533,53 +617,6 @@ export const scenes: Scene[] = [
     tags: ["Python", "Graph Algorithms", "Route Optimization"],
     hue: 205,
     reveal: "iris",
-  },
-  {
-    id: "flashfind",
-    kind: "project",
-    kicker: "Full-Stack ML",
-    title: "FlashFind",
-    subtitle: "Full-Stack / ML Developer",
-    summary:
-      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
-    metrics: [{ value: "400+", label: "Labeled training examples" }],
-    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
-    hue: 330,
-    reveal: "tiles",
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  {
-    id: "cs1331-ta",
-    kind: "role",
-    kicker: "Teaching",
-    title: "CS 1331 Teaching Assistant",
-    subtitle: "Georgia Tech · College of Computing",
-    summary:
-      "Supporting 300+ students in Java and object-oriented programming through recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging — resolving 50+ unique implementation errors every week.",
-    metrics: [
-      { value: "300+", label: "Students supported" },
-      { value: "50+", label: "Java errors resolved weekly" },
-    ],
-    tags: ["Java", "OOP", "Mentorship"],
-    hue: 45,
-    reveal: "slide",
-  },
-  {
-    id: "gt-ios-club",
-    kind: "role",
-    kicker: "iOS Engineering",
-    title: "GT iOS Club",
-    subtitle: "Senior iOS Developer / Tech Lead",
-    summary:
-      "Shipped SideQuest to 100+ testers with 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, and reactions — then selected to lead a 20-member iOS team for Fall 2026, owning architecture, sprint planning, code reviews, and Git workflows. Won the club's Demo Day Pitch Competition with BirthdayPal.",
-    metrics: [
-      { value: "100+", label: "SideQuest testers" },
-      { value: "20", label: "Engineers led · Fall 2026" },
-      { value: "Winner", label: "Demo Day Pitch Competition" },
-    ],
-    tags: ["SwiftUI", "Firebase", "Leadership"],
-    hue: 145,
-    reveal: "stack",
   },
   {
     id: "blueboat-research",
