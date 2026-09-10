@@ -408,7 +408,8 @@ export const navLinks = [
 // ============================================================
 // CINEMATIC SHOWCASE SCENES
 // Each scene is one pinned, scroll-driven chapter on the site.
-// ORDER: resume Experience order first, then FlashFind (the
+// ORDER: Biomedical AI Agents (MBZUAI) leads; then the rest of
+// the resume's Experience in resume order, then FlashFind (the
 // resume's project), then everything else.
 // Scene ids reuse project ids where they cover the same work,
 // so the "More work" index can exclude them automatically.
@@ -447,7 +448,25 @@ export type Scene = {
 };
 
 export const scenes: Scene[] = [
-  // ── resume Experience, in resume order ──────────────────
+  // ── lead chapter ────────────────────────────────────────
+  {
+    id: "mbzuai-genbio",
+    kind: "role",
+    kicker: "AI Research",
+    title: "Biomedical AI Agents",
+    subtitle: "AI Research Intern · MBZUAI & GenBio AI",
+    summary:
+      "A 4-agent Python ML workflow built with Claude and OpenClaw for iterative experimentation on BioXArena — outperforming baseline agents by 9% across 76 biomedical tasks, backed by a 3-round evaluation pipeline and a 3,662-dimensional TF-IDF system for cross-task strategy retrieval.",
+    metrics: [
+      { value: "+9%", label: "Over baseline agents · 76 tasks" },
+      { value: "Up to 30%", label: "Task-performance gain" },
+      { value: "3,662", label: "TF-IDF dimensions for strategy retrieval" },
+    ],
+    tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
+    hue: 265,
+    reveal: "decode",
+  },
+  // ── rest of resume Experience, in resume order ──────────
   {
     id: "gt-ios-club",
     kind: "role",
@@ -480,23 +499,6 @@ export const scenes: Scene[] = [
     tags: ["Java", "OOP", "Mentorship"],
     hue: 45,
     reveal: "slide",
-  },
-  {
-    id: "mbzuai-genbio",
-    kind: "role",
-    kicker: "AI Research",
-    title: "Biomedical AI Agents",
-    subtitle: "AI Research Intern · MBZUAI & GenBio AI",
-    summary:
-      "A 4-agent Python ML workflow built with Claude and OpenClaw for iterative experimentation on BioXArena — outperforming baseline agents by 9% across 76 biomedical tasks, backed by a 3-round evaluation pipeline and a 3,662-dimensional TF-IDF system for cross-task strategy retrieval.",
-    metrics: [
-      { value: "+9%", label: "Over baseline agents · 76 tasks" },
-      { value: "Up to 30%", label: "Task-performance gain" },
-      { value: "3,662", label: "TF-IDF dimensions for strategy retrieval" },
-    ],
-    tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
-    hue: 265,
-    reveal: "decode",
   },
   {
     id: "emkay-analytics",
