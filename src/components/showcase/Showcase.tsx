@@ -25,7 +25,7 @@ export default function Showcase() {
           num="02"
           title="Selected Work"
           kicker="Selected Work"
-          accent="chapter by chapter."
+          meta={`${String(scenes.length).padStart(2, "0")} chapters`}
           sub="Ten chapters — agentic AI research, iOS products, ML systems, teaching, and more. Scroll through each one."
         />
       </div>
@@ -60,7 +60,7 @@ export default function Showcase() {
                         {p.tags.slice(0, 3).join(" · ")}
                       </span>
                       {p.highlight && (
-                        <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] text-ghost">
+                        <span className="rounded-sm border border-accent/40 px-2.5 py-0.5 font-mono text-[10px] text-accent">
                           {p.highlight}
                         </span>
                       )}

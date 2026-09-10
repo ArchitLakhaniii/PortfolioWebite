@@ -26,7 +26,7 @@ export default function ResourceLinks({ resources }: { resources?: ProjectResour
           href={l.href}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-chalk transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.03]"
+          className="inline-flex items-center gap-2 rounded-sm border border-line px-4 py-2 text-sm text-chalk transition-colors duration-300 hover:border-accent hover:text-accent"
         >
           {l.icon === "github" && <GitHubIcon className="h-4 w-4" />}
           {l.icon === "download" && <DownloadIcon className="h-4 w-4" />}

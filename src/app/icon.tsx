@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { profile } from "@/data/profile";
 
 /**
- * Browser-tab icon: the "AL" monogram, matching the nav mark.
+ * Browser-tab icon: the "AL" monogram on a signal-orange tile.
  * Generated at build time by Next's App Router icon convention, so it
  * stays in sync with `profile.initials` and the design tokens.
  */
@@ -19,13 +19,12 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#070709",
-          color: "#f4f4f6",
-          fontSize: 28,
-          fontWeight: 600,
-          letterSpacing: "-0.04em",
-          borderRadius: 14,
-          border: "3px solid rgba(124,140,255,0.45)",
+          background: "#ff5a1f",
+          color: "#0a0a09",
+          fontSize: 30,
+          fontWeight: 800,
+          letterSpacing: "-0.03em",
+          borderRadius: 6,
         }}
       >
         {profile.initials}

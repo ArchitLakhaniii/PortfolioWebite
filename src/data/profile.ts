@@ -12,6 +12,8 @@ export const profile = {
   role: "AI / Product Engineer",
   eyebrow: "Georgia Tech · Computer Science",
   location: "Atlanta, GA",
+  timeZone: "America/New_York", // drives the live clock in the hero
+  coordinates: "33.749° N, 84.388° W",
   email: "alakhani41@gatech.edu",
   resumeUrl: "/resume.pdf", // drop your resume at public/resume.pdf
   availability: "Open to internships & research collaborations",
@@ -408,7 +410,7 @@ export type Scene = {
   summary: string;
   metrics?: SceneMetric[];
   tags: string[];
-  hue: number; // 0–360, drives the scene's accent color
+  hue: number; // 0–360; legacy, no longer used for color (single signal accent)
   image?: string; // optional /public path; falls back to the typographic cover
   github?: string;
 };

@@ -86,7 +86,7 @@ function SceneActions({ scene }: { scene: SceneData }) {
       {detail && (
         <Link
           href={`/work/${scene.id}`}
-          className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-medium text-chalk transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.03]"
+          className="group inline-flex items-center gap-2 rounded-sm bg-accent px-4 py-2 text-sm font-medium text-void transition-colors duration-300 hover:bg-chalk"
         >
           View details
           <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -142,29 +142,19 @@ function SceneScrub({
   // real case-study content the scene zooms into
   const preview = scenePreview(scene.id);
   const overview = preview.overview ?? scene.summary;
-  const { hue } = scene;
 
   return (
     <div ref={runwayRef} className="relative h-[240vh]">
       <div className="sticky top-0 h-svh overflow-hidden bg-ink">
         <motion.div style={{ opacity: stageOpacity }} className="relative h-full w-full">
-          {/* ambient hue backdrop — no numeral, no side panel */}
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(130% 100% at 50% 42%, hsl(${hue} 32% 9%) 0%, #08080c 58%, #070709 100%)`,
-            }}
-          />
+          {/* dot-grid backdrop — the camera pushes through it */}
           <motion.div
             aria-hidden
-            className="absolute left-1/2 top-[42%] h-[85vh] w-[85vh] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
-            style={{
-              opacity: glowOpacity,
-              scale: glowScale,
-              background: `hsla(${hue} 80% 62% / 0.16)`,
-            }}
+            className="dot-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_72%)]"
+            style={{ opacity: glowOpacity, scale: glowScale }}
           />
+          {/* viewfinder brackets */}
+          <div aria-hidden className="hud-frame pointer-events-none absolute inset-x-10 bottom-10 top-24" />
 
           {/* hollow index numeral behind the title */}
           <motion.div
@@ -173,7 +163,7 @@ function SceneScrub({
             className="pointer-events-none absolute inset-0 flex items-center justify-center"
           >
             <span
-              className="text-outline-faint font-wide select-none leading-none"
+              className="font-dot select-none leading-none text-chalk/[0.05]"
               style={{ fontSize: "min(44vw, 72svh)" }}
             >
               {pad(index + 1)}
@@ -195,7 +185,7 @@ function SceneScrub({
             <h3 className="font-wide mt-7 max-w-5xl text-balance text-[clamp(2.75rem,5.6vw,5.25rem)] uppercase leading-[0.92] text-chalk">
               {scene.title}
             </h3>
-            <p className="mt-5 font-serif text-xl italic text-accent md:text-2xl">
+            <p className="mt-6 font-mono text-sm uppercase tracking-label text-accent">
               {scene.subtitle}
             </p>
           </motion.div>

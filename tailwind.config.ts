@@ -3,56 +3,54 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    // industrial: near-square corners everywhere (dots stay `rounded-full`)
+    borderRadius: {
+      none: "0",
+      sm: "2px",
+      DEFAULT: "2px",
+      md: "3px",
+      lg: "3px",
+      xl: "4px",
+      "2xl": "4px",
+      "3xl": "6px",
+      full: "9999px",
+    },
     extend: {
       colors: {
-        // ── Surfaces ──────────────────────────────
-        void: "#070709",
-        ink: "#0c0c10",
-        surface: "#111116",
-        line: "rgba(255,255,255,0.08)",
-        hairline: "rgba(255,255,255,0.05)",
-        // ── Text ──────────────────────────────────
-        chalk: "#f4f4f6",
-        ghost: "#9a9aa6",
-        faint: "#5f5f6b",
-        // ── Accent (used sparingly) ───────────────
-        accent: "#7c8cff",
-        "accent-soft": "rgba(124,140,255,0.10)",
-        // back-compat aliases (refined values)
-        neon: "#7c8cff",
-        violet: "#8b8bf0",
-        magenta: "#c9b8ff",
+        // ── Surfaces — warm carbon, no blue cast ──
+        void: "#0a0a09",
+        ink: "#0f0f0e",
+        surface: "#161614",
+        line: "rgba(237,234,226,0.10)",
+        hairline: "rgba(237,234,226,0.06)",
+        // ── Text — bone, not pure white ───────────
+        chalk: "#edeae2",
+        ghost: "#a8a59b",
+        faint: "#807d74",
+        // ── Signal orange — the only accent ───────
+        accent: "#ff5a1f",
+        "accent-soft": "rgba(255,90,31,0.10)",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        dot: ["var(--font-dot)", "var(--font-mono)", "monospace"],
       },
       letterSpacing: {
         tightest: "-0.04em",
-        "label": "0.22em",
+        label: "0.18em",
       },
       maxWidth: {
         content: "72rem",
       },
       animation: {
         "fade-up": "fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both",
-        "pulse-slow": "pulseSlow 7s ease-in-out infinite",
-        float: "float 9s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
           "0%": { opacity: "0", transform: "translateY(24px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        pulseSlow: {
-          "0%, 100%": { opacity: "0.35" },
-          "50%": { opacity: "0.7" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
         },
       },
     },
