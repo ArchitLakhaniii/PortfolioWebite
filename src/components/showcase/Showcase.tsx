@@ -19,6 +19,32 @@ export default function Showcase() {
 
   return (
     <section id="projects" className="relative">
+      {/* centered entry heading — marks the start of the chapters */}
+      <div className="relative mx-auto max-w-content px-6 pb-16 pt-28 text-center sm:px-8 md:pb-24 md:pt-40">
+        <span
+          aria-hidden
+          className="font-dot pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-[clamp(8rem,22vw,18rem)] leading-none text-chalk/[0.05]"
+        >
+          02
+        </span>
+        <Reveal className="relative">
+          <div className="flex items-center justify-center gap-4 font-mono text-[11px] uppercase tracking-label">
+            <span className="h-px w-10 bg-line sm:w-16" />
+            <span className="flex items-center gap-2.5 text-chalk">
+              <span className="h-1.5 w-1.5 bg-accent" />
+              Work
+            </span>
+            <span className="h-px w-10 bg-line sm:w-16" />
+          </div>
+          <h2 className="font-wide mt-8 text-[clamp(2.75rem,10vw,8rem)] uppercase leading-[0.9] text-chalk">
+            Projects
+          </h2>
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-label text-faint">
+            {String(scenes.length).padStart(2, "0")} chapters · scroll to enter
+          </p>
+          <span aria-hidden className="mx-auto mt-10 block h-14 w-px bg-gradient-to-b from-accent to-transparent" />
+        </Reveal>
+      </div>
 
       {/* the reel — plain wrapper, no transforms (sticky inside) */}
       <div>

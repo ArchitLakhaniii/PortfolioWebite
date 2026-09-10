@@ -9,6 +9,10 @@ import { hasDetail } from "@/data/projectDetails";
 describe("Showcase", () => {
   beforeEach(() => render(<Showcase />));
 
+  it("renders the centered Projects heading before the chapters", () => {
+    expect(screen.getByRole("heading", { level: 2, name: /projects/i })).toBeInTheDocument();
+  });
+
   it("renders the scenes in data order (resume order first)", () => {
     const titles = screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     expect(titles).toEqual(scenes.map((s) => s.title));
