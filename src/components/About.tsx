@@ -8,6 +8,7 @@ const facts: [string, string][] = [
   ["degree", "B.S. Computer Science"],
   ["gpa", "4.00 / 4.00"],
   ["graduation", "December 2028"],
+  ["coursework", "DSA · OOP · Computer Org · Objects & Design"],
   ["focus", "AI · Agents · iOS · Backend · ML"],
 ];
 

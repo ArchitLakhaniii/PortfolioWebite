@@ -1,6 +1,7 @@
 // ============================================================
 // PORTFOLIO CONTENT — edit this file to update the whole site.
 // Every section of the site reads from the objects below.
+// Facts are synced to public/resume.pdf (last sync: Sept 2026).
 // ============================================================
 
 export const profile = {
@@ -23,9 +24,9 @@ export const profile = {
   },
   about: [
     "I'm a Computer Science student at Georgia Tech focused on building practical software products across AI, agentic systems, mobile development, backend systems, and data science.",
-    "I'm currently an AI Research Intern at MBZUAI & GenBio AI, designing biomedical agentic architectures with Claude workflows and agentic ML pipelines — and authoring a research paper on human-in-the-loop design for biomedical ML agents.",
+    "From May to August 2026 I was an AI Research Intern at MBZUAI & GenBio AI, where I built a 4-agent Python ML workflow with Claude and OpenClaw that outperformed baseline agents by 9% across 76 BioXArena biomedical tasks. Now I'm a Teaching Assistant for Georgia Tech's Java / object-oriented programming course and Tech Lead of a 20-member iOS team at the GT iOS Club.",
     "My work also spans SwiftUI/Firebase iOS apps, AI-powered code analysis tools, LLM pipelines, ML forecasting systems, campus marketplaces, and computer-vision safety navigation research.",
-    "I've interned at MBZUAI & GenBio AI (agentic AI research), Reliance Jio (ML engineering), the National University of Singapore (AI & NLP research), and Emkay Global (quantitative finance), and cofounded two startups — one funded with AED 28,000 by the UAE government.",
+    "I've interned at MBZUAI & GenBio AI (agentic AI research), Reliance Jio (ML engineering), the National University of Singapore (AI & NLP research), and Emkay Global (data analytics), and cofounded two startups — one funded with AED 28,000 by the UAE government.",
   ],
 };
 
@@ -64,9 +65,9 @@ export const projects: Project[] = [
   {
     id: "sidequest",
     title: "SideQuest",
-    role: "Senior iOS Developer · GT iOS Club",
+    role: "Senior iOS Developer / Tech Lead · GT iOS Club",
     description:
-      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Full SwiftUI + Firebase stack.",
+      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Shipped to 100+ testers with 6+ SwiftUI + Firebase features.",
     tags: ["Swift", "SwiftUI", "Firebase", "Firestore", "Kingfisher"],
     categories: ["ios"],
     featured: true,
@@ -88,11 +89,11 @@ export const projects: Project[] = [
     title: "Jio Text-to-SQL LLM",
     role: "ML Intern · Reliance Jio",
     description:
-      "LLM pipeline converting natural language into SQL queries with structured database results. Improved query generation speed by 50% and accuracy by ~60% across internal workloads.",
+      "LLM pipeline translating natural language into SQL for structured-data retrieval. Fine-tuning with Hugging Face Transformers and LangChain raised translation accuracy by 8%; an end-to-end LangChain + Ollama + SQL pipeline cut query-generation time by 50% and improved downstream retrieval accuracy by 60%.",
     tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
     categories: ["ai", "backend"],
     featured: true,
-    highlight: "+60% accuracy",
+    highlight: "+60% retrieval accuracy",
   },
   {
     id: "eunokinetix",
@@ -110,8 +111,8 @@ export const projects: Project[] = [
     title: "FlashFind",
     role: "Full-Stack / ML Developer",
     description:
-      "AI-powered campus marketplace. Students post natural-language Flash Requests — Gemini plus a custom Random Forest classifier Smart-Pings nearby students most likely to have the item.",
-    tags: ["Python", "FastAPI", "MongoDB", "Gemini", "React", "Tailwind"],
+      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
+    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
     categories: ["ai", "web", "backend", "startup"],
     featured: true,
     github: "https://github.com/ArchitLakhaniii",
@@ -142,7 +143,7 @@ export const projects: Project[] = [
     title: "AI / NLP Predictive Models",
     role: "AI & NLP Intern · NUS",
     description:
-      "ML and NLP projects: predictive analytics, chatbot development (Amazon Lex), face recognition (Amazon Rekognition), and telecom churn prediction up to 1.5 years ahead.",
+      "Churn-model experimentation across 6+ ML approaches — ANN, CNN, RNN, regression, clustering, and decision trees — on telecom data, forecasting churn up to 1.5 years ahead, plus NLP and computer-vision apps with Amazon Lex and Rekognition.",
     tags: ["Python", "ANN", "CNN", "Amazon Lex", "Rekognition"],
     categories: ["ai", "research"],
     featured: false,
@@ -179,25 +180,35 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    company: "MBZUAI & GenBio AI",
-    role: "AI Research Intern",
-    date: "May 2026 – Present",
-    location: "Abu Dhabi, UAE",
+    company: "GT iOS Club",
+    role: "Senior iOS Developer / Tech Lead",
+    date: "Jan 2026 – Present",
+    location: "Atlanta, GA",
     bullets: [
-      "Built a biomedical agentic-design architecture with Claude workflows and OpenClaw agentic ML pipelines for BioXArena benchmarking, outperforming other agents by ~9% on average across 76 domain tasks.",
-      "Drove up to ~30% task-level score gains through human-guided model selection, biological feature engineering, cross-validation, and leakage prevention.",
-      "Authoring a research paper on the agentic AI workflow, experimental results, and human-in-the-loop design patterns for biomedical ML agents.",
+      "Delivered SideQuest to 100+ testers by shipping 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, reactions, and persistent user flows.",
+      "Selected to lead a 20-member iOS team for Fall 2026, overseeing architecture, sprint planning, code reviews, Git workflows, and end-to-end feature delivery.",
+      "Led a team project that won the club's Demo Day Pitch Competition with BirthdayPal.",
     ],
   },
   {
     company: "Georgia Tech · College of Computing",
-    role: "CS 1331 Teaching Assistant (OOP in Java)",
-    date: "Jan – May 2026",
+    role: "Teaching Assistant · CS 1331 (OOP in Java)",
+    date: "Jan 2026 – Present",
     location: "Atlanta, GA",
     bullets: [
-      "Supported 300+ students in Object-Oriented Programming in Java through recitations and office hours.",
-      "Guided students through OOP principles, generics, file I/O, debugging, and software design fundamentals.",
-      "Contributed 200+ hours grading assignments and exams and answering student questions.",
+      "Supported 300+ students in Java and object-oriented programming by leading recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging.",
+      "Resolved 50+ unique Java implementation errors weekly by debugging student code and tracing failures across inheritance, generics, file I/O, and object-oriented design.",
+    ],
+  },
+  {
+    company: "MBZUAI & GenBio AI",
+    role: "AI Research Intern",
+    date: "May – Aug 2026",
+    location: "Hybrid · Atlanta, GA",
+    bullets: [
+      "Outperformed baseline agents by 9% across 76 BioXArena tasks by creating a 4-agent Python ML workflow with Claude and OpenClaw for iterative experimentation.",
+      "Raised task performance by up to 30% through a 3-round evaluation pipeline combining cross-validation, feature engineering, leakage detection, and automated debugging.",
+      "Enabled cross-task ML strategy retrieval through a 3,662-dimensional TF-IDF system that ranked task similarity and surfaced prior approaches for new biomedical datasets.",
     ],
   },
   {
@@ -212,24 +223,13 @@ export const experience: Experience[] = [
     ],
   },
   {
-    company: "GT iOS Club",
-    role: "Senior Developer",
-    date: "Jan – May 2026",
-    location: "Atlanta, GA",
-    bullets: [
-      "Senior iOS Developer on SideQuest, a SwiftUI + Firebase social adventure app used by 100+ testers.",
-      "Built 6+ core features including quest posting, collaborator flows, image uploads, feeds, profiles, and leaderboards.",
-      "Led a team project that won the club's Demo Day Pitch Competition with BirthdayPal.",
-    ],
-  },
-  {
     company: "Emkay Global Financial Services",
-    role: "Finance & Data Analytics Intern",
-    date: "Jul 2025",
+    role: "Data Analytics Intern",
+    date: "Jun – Jul 2025",
     location: "Mumbai, India",
     bullets: [
-      "Analyzed 4+ equity markets using Python and the Bloomberg Terminal to study cash, futures, and options delta correlations, improving delta correlation accuracy by 30%.",
-      "Practiced options strategies including delta-neutral hedging, put-call parity, and volatility spreads to evaluate trading risk-reward.",
+      "Improved delta correlation accuracy by 30% across 4+ equity markets by processing Bloomberg derivatives data with Python, pandas, and NumPy.",
+      "Enabled real-time derivatives analysis by applying statistical and time-series techniques to Bloomberg data for pricing, volatility, and cross-market relationships.",
     ],
   },
   {
@@ -238,8 +238,8 @@ export const experience: Experience[] = [
     date: "Jul – Aug 2024",
     location: "Remote",
     bullets: [
-      "Built a Text-to-SQL LLM pipeline translating natural language into SQL with LangChain, Hugging Face, Ollama, and Python.",
-      "Improved query generation speed by 50% and accuracy by ~60%.",
+      "Raised Text-to-SQL translation accuracy by 8% through LLM fine-tuning with Hugging Face Transformers and LangChain, improving structured-data retrieval from complex databases.",
+      "Cut query-generation time by 50% and improved downstream retrieval accuracy by 60% by integrating LangChain, Ollama, SQL, and Python into an end-to-end NLP pipeline.",
     ],
   },
   {
@@ -258,8 +258,8 @@ export const experience: Experience[] = [
     date: "Jun – Jul 2023",
     location: "Singapore",
     bullets: [
-      "Implemented ANN, CNN, RNN, regression, clustering, and decision tree models.",
-      "Built chatbots with Amazon Lex and face recognition with Amazon Rekognition; modeled telecom churn up to 1.5 years ahead.",
+      "Expanded churn-model experimentation across 6+ ML approaches, comparing ANN, CNN, RNN, regression, clustering, and decision-tree methods for telecommunications datasets.",
+      "Extended churn forecasting horizons to 1.5 years while deploying NLP and computer-vision applications with AWS Amazon Lex and Rekognition.",
     ],
   },
 ];
@@ -267,36 +267,46 @@ export const experience: Experience[] = [
 export const skills: { group: string; items: string[] }[] = [
   {
     group: "Languages",
-    items: ["Python", "Java", "Swift", "TypeScript", "C++", "C", "SQL", "HTML/CSS"],
+    items: ["Python", "Java", "C++", "TypeScript", "JavaScript", "SQL", "Swift"],
   },
   {
-    group: "AI / ML",
-    items: ["Claude", "Agentic AI", "MCP", "OpenClaw", "LangChain", "Hugging Face", "Ollama", "scikit-learn", "pandas", "Gemini", "LLM Pipelines", "Computer Vision", "NLP", "Forecasting"],
+    group: "Frameworks & Libraries",
+    items: ["React", "Next.js", "Node.js", "FastAPI", "Flask", "SwiftUI", "PyTorch", "scikit-learn", "LangChain", "Hugging Face"],
   },
   {
-    group: "Web & Backend",
-    items: ["Next.js", "React", "Tailwind CSS", "FastAPI", "Flask", "Jinja", "Spring Boot", "MongoDB", "REST APIs"],
+    group: "Tools & Data",
+    items: ["Git", "GitHub", "Firebase", "MongoDB", "SQLite", "Prisma", "pandas", "NumPy", "OpenCV", "Ollama"],
   },
   {
-    group: "iOS & Mobile",
-    items: ["SwiftUI", "Firebase", "Firestore", "Firebase Auth", "Firebase Storage", "Kingfisher"],
+    group: "AI Tooling",
+    items: ["Claude", "OpenClaw", "MCP", "Gemini", "Mastra", "Amazon Lex", "Rekognition"],
   },
   {
-    group: "ML Techniques",
-    items: ["Random Forests", "Neural Networks", "Regression", "Clustering", "Agentic Systems"],
-  },
-  {
-    group: "Tools",
-    items: ["Git/GitHub", "Vercel", "Jupyter", "Bloomberg Terminal", "Mastra", "Firebase Console"],
+    group: "Concepts",
+    items: [
+      "Data Structures & Algorithms",
+      "OOP",
+      "REST APIs",
+      "Backend Development",
+      "Databases",
+      "Debugging",
+      "ML Pipelines",
+      "Model Evaluation",
+      "Feature Engineering",
+      "Cross-Validation",
+      "Agentic AI",
+      "NLP",
+      "Computer Vision",
+    ],
   },
   {
     group: "Certifications",
     items: [
+      "Harvard · CS50P: Python",
+      "Harvard · CS50AI: Artificial Intelligence",
       "Anthropic · Advanced MCP",
       "Anthropic · Claude Code in Action",
-      "Harvard CS50x",
-      "Harvard CS50P",
-      "Harvard CS50AI",
+      "Harvard · CS50x",
       "IBM · What is Data Science?",
     ],
   },
@@ -315,6 +325,11 @@ export const achievements: Achievement[] = [
     tag: "Startup",
   },
   {
+    title: "Tech Lead · GT iOS Club",
+    detail: "Selected to lead a 20-member iOS team for Fall 2026 — architecture, sprint planning, code reviews, and end-to-end delivery.",
+    tag: "Leadership",
+  },
+  {
     title: "GT iOS Club Demo Day Winner",
     detail: "Won the pitch competition with BirthdayPal, an AI-powered SwiftUI app.",
     tag: "Award",
@@ -326,12 +341,12 @@ export const achievements: Achievement[] = [
   },
   {
     title: "AI Research Intern · MBZUAI & GenBio AI",
-    detail: "Building biomedical agentic AI with Claude workflows; authoring a paper on human-in-the-loop design for biomedical ML agents.",
+    detail: "Built a 4-agent ML workflow with Claude and OpenClaw that outperformed baseline agents by 9% across 76 BioXArena tasks.",
     tag: "Research",
   },
   {
-    title: "Published: Securing Machine Learning Systems",
-    detail: "Research on adversarial attacks, bias mitigation, and ML vulnerabilities.",
+    title: "Published: Securing Machine Learning",
+    detail: "Understanding Adversarial Attacks and Bias Mitigation (Sept 2024) — adversarial vulnerabilities and bias in ML systems.",
     tag: "Research",
   },
   {
@@ -340,9 +355,9 @@ export const achievements: Achievement[] = [
     tag: "Research",
   },
   {
-    title: "UAE National Chess Team · Top 0.01% Online",
-    detail: "Represented the UAE twice at the CISCE National Games; ranked in the top 0.01% on the world's largest online chess platform across multiple time formats.",
-    tag: "Leadership",
+    title: "UAE National Chess Team · Top 0.01% on Chess.com",
+    detail: "Represented the UAE Chess Team twice at the CISCE National Games; top 0.01% of players on Chess.com across multiple time controls, with a 2000 Elo rating.",
+    tag: "Chess",
   },
 ];
 
@@ -354,10 +369,10 @@ export const ticker = {
   primary: [
     "Georgia Tech CS · 4.00 GPA",
     "AI Research · MBZUAI & GenBio AI",
+    "Tech Lead · GT iOS Club",
     "ML Engineering · Reliance Jio",
     "AI & NLP Research · NUS",
     "AED 28K UAE Government Funding",
-    "GT iOS Club Demo Day Winner",
     "UAE National Chess Team",
   ],
   secondary: [
@@ -401,6 +416,19 @@ export const navLinks = [
 
 export type SceneMetric = { value: string; label: string };
 
+/** Desktop scroll transition from a scene's title into its case study. */
+export type SceneReveal =
+  | "zoom"
+  | "split"
+  | "flip"
+  | "blinds"
+  | "scan"
+  | "iris"
+  | "tiles"
+  | "slide"
+  | "stack"
+  | "decode";
+
 export type Scene = {
   id: string;
   kind: "project" | "role";
@@ -411,6 +439,7 @@ export type Scene = {
   metrics?: SceneMetric[];
   tags: string[];
   hue: number; // 0–360; legacy, no longer used for color (single signal accent)
+  reveal?: SceneReveal; // defaults to "zoom"; give each scene its own
   image?: string; // optional /public path; falls back to the typographic cover
   github?: string;
 };
@@ -423,13 +452,15 @@ export const scenes: Scene[] = [
     title: "Biomedical AI Agents",
     subtitle: "AI Research Intern · MBZUAI & GenBio AI",
     summary:
-      "Biomedical agentic-design architecture built with Claude workflows and OpenClaw agentic ML pipelines for BioXArena benchmarking — outperforming other agents by ~9% on average across 76 domain tasks, with a research paper in progress.",
+      "A 4-agent Python ML workflow built with Claude and OpenClaw for iterative experimentation on BioXArena — outperforming baseline agents by 9% across 76 biomedical tasks, backed by a 3-round evaluation pipeline and a 3,662-dimensional TF-IDF system for cross-task strategy retrieval.",
     metrics: [
-      { value: "+9%", label: "Avg over other agents · 76 tasks" },
-      { value: "~30%", label: "Task-level score gains" },
+      { value: "+9%", label: "Over baseline agents · 76 tasks" },
+      { value: "Up to 30%", label: "Task-performance gain" },
+      { value: "3,662", label: "TF-IDF dimensions for strategy retrieval" },
     ],
     tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
     hue: 265,
+    reveal: "decode",
   },
   {
     id: "gitgood",
@@ -441,6 +472,7 @@ export const scenes: Scene[] = [
       "AI-powered GitHub repository analyzer and tutorial generator. A 6-step Mastra agent pipeline analyzes architecture, identifies core abstractions, maps relationships, and generates beginner-friendly tutorials for any codebase.",
     tags: ["Next.js", "TypeScript", "Mastra", "AI Agents", "LLMs"],
     hue: 235,
+    reveal: "split",
     github: "https://github.com/ArchitLakhaniii",
   },
   {
@@ -448,11 +480,12 @@ export const scenes: Scene[] = [
     kind: "project",
     kicker: "iOS",
     title: "SideQuest",
-    subtitle: "Senior iOS Developer · GT iOS Club",
+    subtitle: "Senior iOS Developer / Tech Lead · GT iOS Club",
     summary:
-      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Full SwiftUI + Firebase stack.",
+      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Shipped to 100+ testers with 6+ SwiftUI + Firebase features.",
     tags: ["Swift", "SwiftUI", "Firebase", "Firestore", "Kingfisher"],
     hue: 160,
+    reveal: "flip",
     github: "https://github.com/ArchitLakhaniii",
   },
   {
@@ -465,6 +498,7 @@ export const scenes: Scene[] = [
       "AI-powered demand forecasting and inventory optimization for independent restaurants. Predicts daily item demand, plans inventory, reduces food waste, and prevents stockouts with data-driven forecasts.",
     tags: ["Python", "pandas", "scikit-learn", "Forecasting", "ML"],
     hue: 25,
+    reveal: "blinds",
     github: "https://github.com/ArchitLakhaniii",
   },
   {
@@ -474,13 +508,15 @@ export const scenes: Scene[] = [
     title: "Jio Text-to-SQL LLM",
     subtitle: "ML Intern · Reliance Jio",
     summary:
-      "LLM pipeline converting natural language into SQL queries with structured database results. Improved query generation speed by 50% and accuracy by ~60% across internal workloads.",
+      "LLM pipeline translating natural language into SQL for structured-data retrieval. Fine-tuning with Hugging Face Transformers and LangChain raised translation accuracy by 8%; an end-to-end LangChain + Ollama + SQL pipeline cut query-generation time by 50% and improved downstream retrieval accuracy by 60%.",
     metrics: [
-      { value: "+50%", label: "Query generation speed" },
-      { value: "~60%", label: "Accuracy improvement" },
+      { value: "+8%", label: "Text-to-SQL translation accuracy" },
+      { value: "−50%", label: "Query-generation time" },
+      { value: "+60%", label: "Downstream retrieval accuracy" },
     ],
     tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
     hue: 280,
+    reveal: "scan",
   },
   {
     id: "eunokinetix",
@@ -496,6 +532,7 @@ export const scenes: Scene[] = [
     ],
     tags: ["Python", "Graph Algorithms", "Route Optimization"],
     hue: 205,
+    reveal: "iris",
   },
   {
     id: "flashfind",
@@ -504,9 +541,11 @@ export const scenes: Scene[] = [
     title: "FlashFind",
     subtitle: "Full-Stack / ML Developer",
     summary:
-      "AI-powered campus marketplace. Students post natural-language Flash Requests — Gemini plus a custom Random Forest classifier Smart-Pings nearby students most likely to have the item.",
-    tags: ["Python", "FastAPI", "MongoDB", "Gemini", "React", "Tailwind"],
+      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
+    metrics: [{ value: "400+", label: "Labeled training examples" }],
+    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
     hue: 330,
+    reveal: "tiles",
     github: "https://github.com/ArchitLakhaniii",
   },
   {
@@ -516,21 +555,31 @@ export const scenes: Scene[] = [
     title: "CS 1331 Teaching Assistant",
     subtitle: "Georgia Tech · College of Computing",
     summary:
-      "Teaching object-oriented programming in Java to Georgia Tech undergraduates. Lead recitations, grade projects, and mentor students through core OOP design concepts.",
+      "Supporting 300+ students in Java and object-oriented programming through recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging — resolving 50+ unique implementation errors every week.",
+    metrics: [
+      { value: "300+", label: "Students supported" },
+      { value: "50+", label: "Java errors resolved weekly" },
+    ],
     tags: ["Java", "OOP", "Mentorship"],
     hue: 45,
+    reveal: "slide",
   },
   {
     id: "gt-ios-club",
     kind: "role",
     kicker: "iOS Engineering",
     title: "GT iOS Club",
-    subtitle: "Senior Developer",
+    subtitle: "Senior iOS Developer / Tech Lead",
     summary:
-      "Building SideQuest, a social adventure iOS app, leading core SwiftUI + Firebase features across quests, feeds, profiles, and leaderboards. Won the club's Demo Day Pitch Competition with BirthdayPal.",
-    metrics: [{ value: "Winner", label: "Demo Day Pitch Competition" }],
+      "Shipped SideQuest to 100+ testers with 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, and reactions — then selected to lead a 20-member iOS team for Fall 2026, owning architecture, sprint planning, code reviews, and Git workflows. Won the club's Demo Day Pitch Competition with BirthdayPal.",
+    metrics: [
+      { value: "100+", label: "SideQuest testers" },
+      { value: "20", label: "Engineers led · Fall 2026" },
+      { value: "Winner", label: "Demo Day Pitch Competition" },
+    ],
     tags: ["SwiftUI", "Firebase", "Leadership"],
     hue: 145,
+    reveal: "stack",
   },
   {
     id: "blueboat-research",
@@ -542,5 +591,6 @@ export const scenes: Scene[] = [
       "Computer-vision-based safety navigation systems for autonomous surface vehicles. Contributing to perception and safer navigation research at Georgia Tech's Sabra Lab.",
     tags: ["Computer Vision", "AI Safety", "Research"],
     hue: 190,
+    reveal: "zoom",
   },
 ];

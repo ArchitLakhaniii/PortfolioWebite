@@ -66,7 +66,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
   sidequest: {
     slug: "sidequest",
     title: "SideQuest",
-    role: "Senior iOS Developer · GT iOS Club",
+    role: "Senior iOS Developer / Tech Lead · GT iOS Club",
     desc: "Make traveling more fun by turning every place into an adventure you can explore, play, and remember! Built with a full SwiftUI + Firebase stack.",
     longDesc: [
       {
