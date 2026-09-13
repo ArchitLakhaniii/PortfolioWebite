@@ -37,6 +37,12 @@ export const stats = [
   { value: "AED 28K", label: "Government funding secured" },
 ];
 
+export type Metric = { value: string; label: string };
+
+// ============================================================
+// PROJECTS — rendered in this order in the Projects grid.
+// FlashFind (the resume's project) first, then everything else.
+// ============================================================
 export type Project = {
   id: string;
   title: string;
@@ -51,6 +57,17 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "flashfind",
+    title: "FlashFind",
+    role: "Full-Stack / ML Developer",
+    description:
+      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
+    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
+    categories: ["ai", "web", "backend", "startup"],
+    featured: true,
+    github: "https://github.com/ArchitLakhaniii",
+  },
   {
     id: "gitgood",
     title: "GitGood",
@@ -107,17 +124,6 @@ export const projects: Project[] = [
     highlight: "AED 28K funded · Top 3 UAE",
   },
   {
-    id: "flashfind",
-    title: "FlashFind",
-    role: "Full-Stack / ML Developer",
-    description:
-      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
-    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
-    categories: ["ai", "web", "backend", "startup"],
-    featured: true,
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  {
     id: "birthdaypal",
     title: "BirthdayPal",
     role: "iOS Developer / Team Lead Contributor",
@@ -170,36 +176,36 @@ export const projects: Project[] = [
   },
 ];
 
+// ============================================================
+// EXPERIENCE — each row opens a window with its own animation.
+// ORDER: MBZUAI leads, then the rest of the resume's Experience
+// in resume order, then roles that aren't on the resume.
+// ============================================================
+
+/** Animation a role's window opens (and closes) with — see ExperienceWindow.tsx. */
+export type ExperienceOpen =
+  | "genie"
+  | "morph"
+  | "flip"
+  | "blinds"
+  | "scan"
+  | "crt"
+  | "iris"
+  | "tiles";
+
 export type Experience = {
   company: string;
   role: string;
   date: string;
   location: string;
   bullets: string[];
+  metrics?: Metric[];
+  tags?: string[];
+  caseStudy?: string; // id of a project with a /work case-study page
+  open?: ExperienceOpen; // defaults to "morph"; give each role its own
 };
 
 export const experience: Experience[] = [
-  {
-    company: "GT iOS Club",
-    role: "Senior iOS Developer / Tech Lead",
-    date: "Jan 2026 – Present",
-    location: "Atlanta, GA",
-    bullets: [
-      "Delivered SideQuest to 100+ testers by shipping 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, reactions, and persistent user flows.",
-      "Selected to lead a 20-member iOS team for Fall 2026, overseeing architecture, sprint planning, code reviews, Git workflows, and end-to-end feature delivery.",
-      "Led a team project that won the club's Demo Day Pitch Competition with BirthdayPal.",
-    ],
-  },
-  {
-    company: "Georgia Tech · College of Computing",
-    role: "Teaching Assistant · CS 1331 (OOP in Java)",
-    date: "Jan 2026 – Present",
-    location: "Atlanta, GA",
-    bullets: [
-      "Supported 300+ students in Java and object-oriented programming by leading recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging.",
-      "Resolved 50+ unique Java implementation errors weekly by debugging student code and tracing failures across inheritance, generics, file I/O, and object-oriented design.",
-    ],
-  },
   {
     company: "MBZUAI & GenBio AI",
     role: "AI Research Intern",
@@ -210,17 +216,48 @@ export const experience: Experience[] = [
       "Raised task performance by up to 30% through a 3-round evaluation pipeline combining cross-validation, feature engineering, leakage detection, and automated debugging.",
       "Enabled cross-task ML strategy retrieval through a 3,662-dimensional TF-IDF system that ranked task similarity and surfaced prior approaches for new biomedical datasets.",
     ],
+    metrics: [
+      { value: "+9%", label: "Over baseline agents · 76 tasks" },
+      { value: "Up to 30%", label: "Task-performance gain" },
+      { value: "3,662", label: "TF-IDF dimensions for strategy retrieval" },
+    ],
+    tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
+    open: "genie",
   },
   {
-    company: "Georgia Tech · Sabra Lab",
-    role: "Undergraduate Researcher",
-    date: "Jan – May 2026",
+    company: "GT iOS Club",
+    role: "Senior iOS Developer / Tech Lead",
+    date: "Jan 2026 – Present",
     location: "Atlanta, GA",
     bullets: [
-      "Researched autonomous BlueBoat navigation using monocular depth estimation for obstacle awareness.",
-      "Evaluated 4+ SLAM / depth models — Apple Depth Pro, MiDaS, ORB-SLAM2, and ZoeDepth — for Raspberry Pi 5 deployment.",
-      "Supported a real-time perception pipeline with YOLOv10, EKF sonar localization, and GTRI field tests every 1–2 weeks.",
+      "Delivered SideQuest to 100+ testers by shipping 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, reactions, and persistent user flows.",
+      "Selected to lead a 20-member iOS team for Fall 2026, overseeing architecture, sprint planning, code reviews, Git workflows, and end-to-end feature delivery.",
+      "Led a team project that won the club's Demo Day Pitch Competition with BirthdayPal.",
     ],
+    metrics: [
+      { value: "100+", label: "SideQuest testers" },
+      { value: "20", label: "Engineers led · Fall 2026" },
+      { value: "Winner", label: "Demo Day Pitch Competition" },
+    ],
+    tags: ["SwiftUI", "Firebase", "Leadership"],
+    caseStudy: "sidequest",
+    open: "morph",
+  },
+  {
+    company: "Georgia Tech · College of Computing",
+    role: "Teaching Assistant · CS 1331 (OOP in Java)",
+    date: "Jan 2026 – Present",
+    location: "Atlanta, GA",
+    bullets: [
+      "Supported 300+ students in Java and object-oriented programming by leading recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging.",
+      "Resolved 50+ unique Java implementation errors weekly by debugging student code and tracing failures across inheritance, generics, file I/O, and object-oriented design.",
+    ],
+    metrics: [
+      { value: "300+", label: "Students supported" },
+      { value: "50+", label: "Java errors resolved weekly" },
+    ],
+    tags: ["Java", "OOP", "Mentorship"],
+    open: "flip",
   },
   {
     company: "Emkay Global Financial Services",
@@ -231,6 +268,12 @@ export const experience: Experience[] = [
       "Improved delta correlation accuracy by 30% across 4+ equity markets by processing Bloomberg derivatives data with Python, pandas, and NumPy.",
       "Enabled real-time derivatives analysis by applying statistical and time-series techniques to Bloomberg data for pricing, volatility, and cross-market relationships.",
     ],
+    metrics: [
+      { value: "+30%", label: "Delta correlation accuracy" },
+      { value: "4+", label: "Equity markets" },
+    ],
+    tags: ["Python", "pandas", "NumPy", "Bloomberg", "Time Series"],
+    open: "blinds",
   },
   {
     company: "Reliance Jio",
@@ -241,16 +284,14 @@ export const experience: Experience[] = [
       "Raised Text-to-SQL translation accuracy by 8% through LLM fine-tuning with Hugging Face Transformers and LangChain, improving structured-data retrieval from complex databases.",
       "Cut query-generation time by 50% and improved downstream retrieval accuracy by 60% by integrating LangChain, Ollama, SQL, and Python into an end-to-end NLP pipeline.",
     ],
-  },
-  {
-    company: "JuniorMBA / Cleverharvey",
-    role: "Product Design Intern",
-    date: "Jul – Aug 2023",
-    location: "Dubai, UAE",
-    bullets: [
-      "Designed MVP models (Concierge, Wizard of Oz, Piecemeal) for early-stage product validation.",
-      "Partnered with CULTFIT India on a meal-planning app GUI and homepage.",
+    metrics: [
+      { value: "+8%", label: "Text-to-SQL translation accuracy" },
+      { value: "−50%", label: "Query-generation time" },
+      { value: "+60%", label: "Downstream retrieval accuracy" },
     ],
+    tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
+    caseStudy: "text-to-sql",
+    open: "scan",
   },
   {
     company: "National University of Singapore",
@@ -261,6 +302,43 @@ export const experience: Experience[] = [
       "Expanded churn-model experimentation across 6+ ML approaches, comparing ANN, CNN, RNN, regression, clustering, and decision-tree methods for telecommunications datasets.",
       "Extended churn forecasting horizons to 1.5 years while deploying NLP and computer-vision applications with AWS Amazon Lex and Rekognition.",
     ],
+    metrics: [
+      { value: "6+", label: "ML approaches compared" },
+      { value: "1.5 yrs", label: "Churn forecasting horizon" },
+    ],
+    tags: ["Python", "ANN", "CNN", "Amazon Lex", "Rekognition"],
+    caseStudy: "nus-ml-nlp",
+    open: "crt",
+  },
+  // ── not on the resume ─────────────────────────────────────
+  {
+    company: "Georgia Tech · Sabra Lab",
+    role: "Undergraduate Researcher",
+    date: "Jan – May 2026",
+    location: "Atlanta, GA",
+    bullets: [
+      "Researched autonomous BlueBoat navigation using monocular depth estimation for obstacle awareness.",
+      "Evaluated 4+ SLAM / depth models — Apple Depth Pro, MiDaS, ORB-SLAM2, and ZoeDepth — for Raspberry Pi 5 deployment.",
+      "Supported a real-time perception pipeline with YOLOv10, EKF sonar localization, and GTRI field tests every 1–2 weeks.",
+    ],
+    metrics: [{ value: "4+", label: "SLAM / depth models evaluated" }],
+    tags: ["Computer Vision", "YOLOv10", "SLAM", "Raspberry Pi 5"],
+    caseStudy: "blueboat-research",
+    open: "iris",
+  },
+  {
+    company: "JuniorMBA / Cleverharvey",
+    role: "Product Design Intern",
+    date: "Jul – Aug 2023",
+    location: "Dubai, UAE",
+    bullets: [
+      "Designed MVP models (Concierge, Wizard of Oz, Piecemeal) for early-stage product validation.",
+      "Partnered with CULTFIT India on a meal-planning app GUI and homepage.",
+    ],
+    metrics: [{ value: "3", label: "MVP models designed" }],
+    tags: ["UI/UX", "MVP Prototyping", "Product Design"],
+    caseStudy: "cultfit-meal-planner",
+    open: "tiles",
   },
 ];
 
@@ -396,240 +474,12 @@ export const spotlight = {
   watermark: "UAE",
 };
 
+// In page order.
 export const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Work", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
-];
-
-// ============================================================
-// CINEMATIC SHOWCASE SCENES
-// Each scene is one pinned, scroll-driven chapter on the site.
-// ORDER: Biomedical AI Agents (MBZUAI) leads; then the rest of
-// the resume's Experience in resume order, then FlashFind (the
-// resume's project), then everything else.
-// Scene ids reuse project ids where they cover the same work,
-// so the "More work" index can exclude them automatically.
-// ============================================================
-
-export type SceneMetric = { value: string; label: string };
-
-/** Desktop scroll transition from a scene's title into its case study. */
-export type SceneReveal =
-  | "zoom"
-  | "split"
-  | "flip"
-  | "blinds"
-  | "scan"
-  | "iris"
-  | "tiles"
-  | "slide"
-  | "stack"
-  | "decode"
-  | "diagonal"
-  | "crt";
-
-export type Scene = {
-  id: string;
-  kind: "project" | "role";
-  kicker: string; // short chapter label, e.g. "AI Agents"
-  title: string;
-  subtitle: string; // role / position line
-  summary: string;
-  metrics?: SceneMetric[];
-  tags: string[];
-  hue: number; // 0–360; legacy, no longer used for color (single signal accent)
-  reveal?: SceneReveal; // defaults to "zoom"; give each scene its own
-  image?: string; // optional /public path; falls back to the typographic cover
-  github?: string;
-};
-
-export const scenes: Scene[] = [
-  // ── lead chapter ────────────────────────────────────────
-  {
-    id: "mbzuai-genbio",
-    kind: "role",
-    kicker: "AI Research",
-    title: "Biomedical AI Agents",
-    subtitle: "AI Research Intern · MBZUAI & GenBio AI",
-    summary:
-      "A 4-agent Python ML workflow built with Claude and OpenClaw for iterative experimentation on BioXArena — outperforming baseline agents by 9% across 76 biomedical tasks, backed by a 3-round evaluation pipeline and a 3,662-dimensional TF-IDF system for cross-task strategy retrieval.",
-    metrics: [
-      { value: "+9%", label: "Over baseline agents · 76 tasks" },
-      { value: "Up to 30%", label: "Task-performance gain" },
-      { value: "3,662", label: "TF-IDF dimensions for strategy retrieval" },
-    ],
-    tags: ["Claude", "Agentic AI", "OpenClaw", "Biomedical ML"],
-    hue: 265,
-    reveal: "decode",
-  },
-  // ── rest of resume Experience, in resume order ──────────
-  {
-    id: "gt-ios-club",
-    kind: "role",
-    kicker: "iOS Engineering",
-    title: "GT iOS Club",
-    subtitle: "Senior iOS Developer / Tech Lead",
-    summary:
-      "Shipped SideQuest to 100+ testers with 6+ SwiftUI + Firebase features spanning quests, feeds, profiles, uploads, and reactions — then selected to lead a 20-member iOS team for Fall 2026, owning architecture, sprint planning, code reviews, and Git workflows. Won the club's Demo Day Pitch Competition with BirthdayPal.",
-    metrics: [
-      { value: "100+", label: "SideQuest testers" },
-      { value: "20", label: "Engineers led · Fall 2026" },
-      { value: "Winner", label: "Demo Day Pitch Competition" },
-    ],
-    tags: ["SwiftUI", "Firebase", "Leadership"],
-    hue: 145,
-    reveal: "stack",
-  },
-  {
-    id: "cs1331-ta",
-    kind: "role",
-    kicker: "Teaching",
-    title: "CS 1331 Teaching Assistant",
-    subtitle: "Georgia Tech · College of Computing",
-    summary:
-      "Supporting 300+ students in Java and object-oriented programming through recitations and office hours on generics, inheritance, polymorphism, file I/O, exceptions, and debugging — resolving 50+ unique implementation errors every week.",
-    metrics: [
-      { value: "300+", label: "Students supported" },
-      { value: "50+", label: "Java errors resolved weekly" },
-    ],
-    tags: ["Java", "OOP", "Mentorship"],
-    hue: 45,
-    reveal: "slide",
-  },
-  {
-    id: "emkay-analytics",
-    kind: "role",
-    kicker: "Quant Analytics",
-    title: "Derivatives Analytics",
-    subtitle: "Data Analytics Intern · Emkay Global",
-    summary:
-      "Processed Bloomberg derivatives data with Python, pandas, and NumPy to improve delta correlation accuracy by 30% across 4+ equity markets, applying statistical and time-series techniques to pricing, volatility, and cross-market relationships.",
-    metrics: [
-      { value: "+30%", label: "Delta correlation accuracy" },
-      { value: "4+", label: "Equity markets" },
-    ],
-    tags: ["Python", "pandas", "NumPy", "Bloomberg", "Time Series"],
-    hue: 100,
-    reveal: "diagonal",
-  },
-  {
-    id: "text-to-sql",
-    kind: "project",
-    kicker: "ML Engineering",
-    title: "Jio Text-to-SQL LLM",
-    subtitle: "ML Intern · Reliance Jio",
-    summary:
-      "LLM pipeline translating natural language into SQL for structured-data retrieval. Fine-tuning with Hugging Face Transformers and LangChain raised translation accuracy by 8%; an end-to-end LangChain + Ollama + SQL pipeline cut query-generation time by 50% and improved downstream retrieval accuracy by 60%.",
-    metrics: [
-      { value: "+8%", label: "Text-to-SQL translation accuracy" },
-      { value: "−50%", label: "Query-generation time" },
-      { value: "+60%", label: "Downstream retrieval accuracy" },
-    ],
-    tags: ["Python", "LangChain", "Hugging Face", "Ollama", "SQL", "NLP"],
-    hue: 280,
-    reveal: "scan",
-  },
-  {
-    id: "nus-ml-nlp",
-    kind: "project",
-    kicker: "AI & NLP Research",
-    title: "AI / NLP Predictive Models",
-    subtitle: "AI & NLP Intern · NUS",
-    summary:
-      "Churn-model experimentation across 6+ ML approaches — ANN, CNN, RNN, regression, clustering, and decision trees — on telecom data, forecasting churn up to 1.5 years ahead, plus NLP and computer-vision apps with Amazon Lex and Rekognition.",
-    metrics: [
-      { value: "6+", label: "ML approaches compared" },
-      { value: "1.5 yrs", label: "Churn forecasting horizon" },
-    ],
-    tags: ["Python", "ANN", "CNN", "Amazon Lex", "Rekognition"],
-    hue: 15,
-    reveal: "crt",
-  },
-  // ── resume project ──────────────────────────────────────
-  {
-    id: "flashfind",
-    kind: "project",
-    kicker: "Full-Stack ML",
-    title: "FlashFind",
-    subtitle: "Full-Stack / ML Developer",
-    summary:
-      "Real-time campus buyer-seller matching. A React/TypeScript + FastAPI platform turns natural-language requests into structured JSON with Gemini and stores listings in MongoDB; a Random Forest classifier trained on 400+ synthetically generated examples predicts the best seller matches.",
-    metrics: [{ value: "400+", label: "Labeled training examples" }],
-    tags: ["React", "TypeScript", "Python", "FastAPI", "MongoDB", "scikit-learn", "Gemini"],
-    hue: 330,
-    reveal: "tiles",
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  // ── everything else ─────────────────────────────────────
-  {
-    id: "gitgood",
-    kind: "project",
-    kicker: "AI Agents",
-    title: "GitGood",
-    subtitle: "Full-Stack / AI Agent Developer",
-    summary:
-      "AI-powered GitHub repository analyzer and tutorial generator. A 6-step Mastra agent pipeline analyzes architecture, identifies core abstractions, maps relationships, and generates beginner-friendly tutorials for any codebase.",
-    tags: ["Next.js", "TypeScript", "Mastra", "AI Agents", "LLMs"],
-    hue: 235,
-    reveal: "split",
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  {
-    id: "sidequest",
-    kind: "project",
-    kicker: "iOS",
-    title: "SideQuest",
-    subtitle: "Senior iOS Developer / Tech Lead · GT iOS Club",
-    summary:
-      "A social adventure app where users complete real-world quests, collaborate with friends, and share challenges through posts, photos, comments, and reactions. Shipped to 100+ testers with 6+ SwiftUI + Firebase features.",
-    tags: ["Swift", "SwiftUI", "Firebase", "Firestore", "Kingfisher"],
-    hue: 160,
-    reveal: "flip",
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  {
-    id: "tastecast",
-    kind: "project",
-    kicker: "Startup",
-    title: "TasteCast",
-    subtitle: "Cofounder + Technical Builder",
-    summary:
-      "AI-powered demand forecasting and inventory optimization for independent restaurants. Predicts daily item demand, plans inventory, reduces food waste, and prevents stockouts with data-driven forecasts.",
-    tags: ["Python", "pandas", "scikit-learn", "Forecasting", "ML"],
-    hue: 25,
-    reveal: "blinds",
-    github: "https://github.com/ArchitLakhaniii",
-  },
-  {
-    id: "eunokinetix",
-    kind: "project",
-    kicker: "Founder",
-    title: "EunoKinetix",
-    subtitle: "Cofounder",
-    summary:
-      "AI fleet optimization system using Dijkstra's algorithm to reduce idle routes and fuel usage. Secured AED 28,000 in UAE government funding and reached Top 3 among UAE entrepreneurship projects.",
-    metrics: [
-      { value: "AED 28K", label: "UAE government funding" },
-      { value: "Top 3", label: "UAE entrepreneurship projects" },
-    ],
-    tags: ["Python", "Graph Algorithms", "Route Optimization"],
-    hue: 205,
-    reveal: "iris",
-  },
-  {
-    id: "blueboat-research",
-    kind: "role",
-    kicker: "Research",
-    title: "Autonomous BlueBoat Navigation",
-    subtitle: "Undergraduate Researcher · Sabra Lab",
-    summary:
-      "Computer-vision-based safety navigation systems for autonomous surface vehicles. Contributing to perception and safer navigation research at Georgia Tech's Sabra Lab.",
-    tags: ["Computer Vision", "AI Safety", "Research"],
-    hue: 190,
-    reveal: "zoom",
-  },
 ];

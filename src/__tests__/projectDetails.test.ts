@@ -1,5 +1,5 @@
 import { projectDetails, projectDetailSlugs, hasDetail } from "@/data/projectDetails";
-import { projects, scenes } from "@/data/profile";
+import { projects, experience } from "@/data/profile";
 
 describe("projectDetails data", () => {
   const entries = Object.entries(projectDetails);
@@ -57,24 +57,16 @@ describe("projectDetails data", () => {
     expect(hasDetail("does-not-exist")).toBe(false);
   });
 
-  it("every scene that maps to a detail uses a real slug", () => {
-    scenes.forEach((s) => {
-      if (hasDetail(s.id)) {
-        expect(projectDetails[s.id]).toBeDefined();
-      }
-    });
-  });
-
-  it("every 'More work' project resolves to a detail page", () => {
-    const sceneIds = new Set(scenes.map((s) => s.id));
-    const moreWork = projects.filter((p) => !sceneIds.has(p.id));
-    moreWork.forEach((p) => {
+  it("every project resolves to a detail page", () => {
+    projects.forEach((p) => {
       expect(hasDetail(p.id)).toBe(true);
+      expect(projectDetails[p.id]).toBeDefined();
     });
   });
 
-  it("the 6 featured project scenes all have detail pages", () => {
-    const featuredScenes = scenes.filter((s) => s.kind === "project");
-    featuredScenes.forEach((s) => expect(hasDetail(s.id)).toBe(true));
+  it("every experience case-study link points at a real detail page", () => {
+    experience
+      .filter((e) => e.caseStudy)
+      .forEach((e) => expect(hasDetail(e.caseStudy as string)).toBe(true));
   });
 });

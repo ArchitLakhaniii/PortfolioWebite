@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import Experience from "@/components/Experience";
 import { experience } from "@/data/profile";
+import { hasDetail } from "@/data/projectDetails";
 
 beforeAll(() => {
   global.IntersectionObserver = class {
@@ -10,11 +11,15 @@ beforeAll(() => {
   } as unknown as typeof IntersectionObserver;
 });
 
+const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const rowFor = (company: string) =>
+  screen.getByRole("button", { name: new RegExp(escape(company)) });
+
 describe("Experience", () => {
   beforeEach(() => render(<Experience />));
 
   it("renders the section heading", () => {
-    expect(screen.getByRole("heading", { name: /experience/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: /experience/i })).toBeInTheDocument();
   });
 
   it("renders every company name", () => {
@@ -32,24 +37,58 @@ describe("Experience", () => {
   it("renders every location", () => {
     // Multiple roles may share the same location (e.g. "Atlanta, GA")
     experience.forEach((e) => {
-      const matches = screen.getAllByText(e.location);
-      expect(matches.length).toBeGreaterThan(0);
+      expect(screen.getAllByText(e.location).length).toBeGreaterThan(0);
     });
   });
 
   it("renders every date string", () => {
     experience.forEach((e) => {
-      // getAllByText handles cases where multiple roles share the same date string
-      const matches = screen.getAllByText(e.date);
-      expect(matches.length).toBeGreaterThan(0);
+      expect(screen.getAllByText(e.date).length).toBeGreaterThan(0);
     });
   });
 
-  it("renders bullet points for each role", () => {
+  it("lists MBZUAI first", () => {
+    const buttons = screen.getAllByRole("button");
+    expect(buttons[0]).toHaveTextContent(experience[0].company);
+    expect(experience[0].company).toMatch(/MBZUAI/);
+  });
+
+  it("gives every role its own opening animation", () => {
+    const effects = experience.map((e) => e.open);
+    effects.forEach((fx) => expect(fx).toBeDefined());
+    expect(new Set(effects).size).toBe(effects.length);
+    expect(effects[0]).toBe("genie");
+  });
+
+  it("opens a window with each role's bullets and metrics, then closes it", () => {
     experience.forEach((e) => {
-      e.bullets.forEach((b) => {
-        expect(screen.getByText(b)).toBeInTheDocument();
+      fireEvent.click(rowFor(e.company));
+      const dialog = screen.getByRole("dialog", { name: e.role });
+      e.bullets.forEach((b) => expect(within(dialog).getByText(b)).toBeInTheDocument());
+      e.metrics?.forEach((m) => {
+        expect(within(dialog).getByText(m.value)).toBeInTheDocument();
+        expect(within(dialog).getByText(m.label)).toBeInTheDocument();
       });
+      fireEvent.click(within(dialog).getByRole("button", { name: /close/i }));
+      expect(screen.queryByRole("dialog")).toBeNull();
+    });
+  });
+
+  it("closes the window with Escape", () => {
+    fireEvent.click(rowFor(experience[0].company));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("links to the related case study when there is one", () => {
+    const withCase = experience.filter((e) => e.caseStudy && hasDetail(e.caseStudy));
+    expect(withCase.length).toBeGreaterThan(0);
+    withCase.forEach((e) => {
+      fireEvent.click(rowFor(e.company));
+      const link = within(screen.getByRole("dialog")).getByRole("link", { name: /case study/i });
+      expect(link).toHaveAttribute("href", `/work/${e.caseStudy}`);
+      fireEvent.keyDown(document, { key: "Escape" });
     });
   });
 });

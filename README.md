@@ -21,9 +21,8 @@ Edit that file to update:
 | `profile` | Name, tagline, email, links, about paragraphs, availability badge |
 | `stats` | The 4 count-up stat tiles in the hero |
 | `ticker` | The two scrolling highlight rows under the hero |
-| `projects` | The "More work" index (ids shared with `scenes` are skipped) |
-| `scenes` | The pinned, scroll-driven Selected Work chapters |
-| `experience` | Expandable experience rows |
+| `experience` | Experience rows; each opens a window with its own animation (`open`), plus optional `metrics`, `tags`, `caseStudy` |
+| `projects` | The Projects card grid, in array order (FlashFind first) |
 | `skills` | Skill groups and tags |
 | `spotlight` | The featured callout at the top of Recognition |
 | `achievements` | Recognition list (tag is the small label) |
@@ -43,8 +42,8 @@ Push to GitHub and import in [Vercel](https://vercel.com) — it auto-detects Ne
 
 ```
 src/
-  app/          layout, page, global styles (theme: glassmorphism + neon)
-  components/   Nav, Hero, About, Projects, Experience, Skills, Achievements, Contact, Footer
+  app/          layout, page, global styles (theme: carbon + signal orange HUD)
+  components/   Nav, Hero, About, Experience (+ ExperienceWindow), Projects, Skills, Achievements, Contact, Footer
   data/         profile.ts  ← edit me
 legacy/         previous static-HTML version of the site
 ```
