@@ -477,7 +477,7 @@ export default function ExperienceWindow({
             href={`/work/${caseStudy.id}`}
             className="group mt-8 inline-flex items-center gap-2 rounded-sm bg-accent px-4 py-2 text-sm font-medium text-void transition-colors duration-300 hover:bg-chalk"
           >
-            Case study · {caseStudy.title}
+            Read more — {caseStudy.title} case study
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         )}

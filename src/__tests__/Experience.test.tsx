@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import Experience from "@/components/Experience";
-import { experience } from "@/data/profile";
+import { experience, projects } from "@/data/profile";
 import { hasDetail } from "@/data/projectDetails";
 
 beforeAll(() => {
@@ -79,6 +79,19 @@ describe("Experience", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("offers a Read more link on rows that have a related page, and only those", () => {
+    const withPage = experience.filter((e) => e.caseStudy && hasDetail(e.caseStudy));
+    const links = screen.getAllByRole("link", { name: /read more/i });
+    expect(links).toHaveLength(withPage.length);
+    withPage.forEach((e) => {
+      const title = projects.find((p) => p.id === e.caseStudy)!.title;
+      const link = screen.getByRole("link", {
+        name: new RegExp(`read more: ${escape(title)} case study`, "i"),
+      });
+      expect(link).toHaveAttribute("href", `/work/${e.caseStudy}`);
+    });
   });
 
   it("links to the related case study when there is one", () => {

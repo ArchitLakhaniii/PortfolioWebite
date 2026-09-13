@@ -1,11 +1,18 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { experience } from "@/data/profile";
+import Link from "next/link";
+import { experience, projects } from "@/data/profile";
+import { hasDetail } from "@/data/projectDetails";
 import Section from "./Section";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";
 import ExperienceWindow, { toRect, type Origin } from "./ExperienceWindow";
+import { ArrowIcon } from "./Icons";
+
+/** The project page a role links to, when it has one. */
+const relatedPage = (id?: string) =>
+  id && hasDetail(id) ? projects.find((p) => p.id === id) : undefined;
 
 const pad = (n: number) => String(n).padStart(2, "0");
 // earliest year across all roles, for the header readout
@@ -63,6 +70,7 @@ export default function Experience() {
       <ul className="border-t border-line">
         {experience.map((e, i) => {
           const isOpen = active?.index === i;
+          const page = relatedPage(e.caseStudy);
           return (
             <li key={`${e.company}-${e.date}`} className="group/row relative border-b border-line">
               <span
@@ -71,8 +79,8 @@ export default function Experience() {
                   isOpen ? "opacity-100" : "opacity-0 group-hover/row:opacity-60"
                 }`}
               />
-              <Reveal delay={(i % 4) * 50} y={16}>
-                <h3>
+              <Reveal delay={(i % 4) * 50} y={16} className="flex items-center gap-3">
+                <h3 className="min-w-0 flex-1">
                   <button
                     ref={(el) => {
                       rows.current[i] = el;
@@ -113,6 +121,20 @@ export default function Experience() {
                     </span>
                   </button>
                 </h3>
+                {/* straight to the related case study, without opening the window */}
+                {page ? (
+                  <Link
+                    href={`/work/${page.id}`}
+                    aria-label={`Read more: ${page.title} case study`}
+                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-line font-mono text-[10px] uppercase tracking-label text-ghost transition-colors duration-300 hover:border-accent hover:text-accent sm:w-[7.5rem]"
+                  >
+                    <span className="hidden sm:inline">Read more</span>
+                    <ArrowIcon className="h-3.5 w-3.5" />
+                  </Link>
+                ) : (
+                  // keeps every row's icon aligned
+                  <span aria-hidden className="block h-9 w-9 shrink-0 sm:w-[7.5rem]" />
+                )}
               </Reveal>
             </li>
           );

@@ -71,10 +71,10 @@ export default function Projects() {
                       {detail && (
                         <Link
                           href={`/work/${p.id}`}
-                          aria-label={`${p.title} case study`}
+                          aria-label={`Read more: ${p.title} case study`}
                           className="inline-flex items-center gap-1.5 text-chalk transition-colors hover:text-accent"
                         >
-                          Case study
+                          Read more
                           <ArrowIcon className="h-4 w-4" />
                         </Link>
                       )}
