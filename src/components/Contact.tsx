@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/data/profile";
 import Section from "./Section";
 import Reveal from "./Reveal";
-import { GitHubIcon, LinkedInIcon, MailIcon, ArrowIcon } from "./Icons";
+import { GitHubIcon, LinkedInIcon, MailIcon, ArrowIcon, LockIcon } from "./Icons";
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement>(null);
@@ -73,7 +73,20 @@ export default function Contact() {
                 Download Resume
                 <ArrowIcon className="h-4 w-4" />
               </a>
+              <a
+                href={profile.transcriptUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Password-protected PDF"
+                className="inline-flex items-center gap-2 rounded-sm border border-line px-7 py-3 text-sm font-medium text-chalk transition-colors duration-300 hover:border-chalk/40"
+              >
+                <LockIcon className="h-4 w-4" />
+                Unofficial Transcript
+              </a>
             </div>
+            <p className="mt-4 font-mono text-[10px] uppercase tracking-label text-faint">
+              Transcript is password-protected — email me for access.
+            </p>
           </Reveal>
 
           <Reveal delay={100}>

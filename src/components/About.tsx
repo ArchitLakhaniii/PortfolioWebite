@@ -2,11 +2,13 @@ import { profile } from "@/data/profile";
 import Section from "./Section";
 import SectionHeader from "./SectionHeader";
 import Reveal from "./Reveal";
+import { LockIcon } from "./Icons";
 
-const facts: [string, string][] = [
+// [label, value, optional supporting document]
+const facts: [string, string, string?][] = [
   ["institution", "Georgia Tech College of Computing"],
   ["degree", "B.S. Computer Science"],
-  ["gpa", "4.00 / 4.00"],
+  ["gpa", "4.00 / 4.00", profile.transcriptUrl],
   ["graduation", "December 2028"],
   ["coursework", "DSA · OOP · Computer Org · Objects & Design"],
   ["focus", "AI · Agents · iOS · Backend · ML"],
@@ -32,7 +34,7 @@ export default function About() {
 
         <Reveal delay={120}>
           <dl className="border-t border-line">
-            {facts.map(([k, v]) => (
+            {facts.map(([k, v, doc]) => (
               <div
                 key={k}
                 className="flex items-baseline justify-between gap-6 border-b border-line py-4"
@@ -40,7 +42,22 @@ export default function About() {
                 <dt className="font-mono text-[11px] uppercase tracking-label text-faint">
                   {k}
                 </dt>
-                <dd className="text-right text-sm text-chalk">{v}</dd>
+                <dd className="text-right text-sm text-chalk">
+                  {v}
+                  {doc && (
+                    <a
+                      href={doc}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Unofficial transcript (password-protected PDF)"
+                      title="Password-protected PDF"
+                      className="ml-3 inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-label text-accent transition-colors hover:text-chalk"
+                    >
+                      <LockIcon className="h-3 w-3" />
+                      Transcript
+                    </a>
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

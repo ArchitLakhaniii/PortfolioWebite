@@ -17,6 +17,7 @@ export const profile = {
   coordinates: "33.749° N, 84.388° W",
   email: "alakhani41@gatech.edu",
   resumeUrl: "/resume.pdf", // drop your resume at public/resume.pdf
+  transcriptUrl: "/transcript.pdf", // unofficial transcript at public/transcript.pdf
   availability: "Open to internships & research collaborations",
   links: {
     github: "https://github.com/ArchitLakhaniii",
